@@ -148,7 +148,7 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 
 ## Getting Started
 
-1. **📖 Read the Documentation**: Start with the [comprehensive user guide](docs/README.md)
+1. **📖 Read the Documentation**: Start with the [comprehensive user guide](docs/index.md)
 2. **⚡ Quick Reference**: Use [common prompt patterns](docs/quick-reference.md) for immediate results  
 3. **💡 Study Examples**: Review [real conversation examples](docs/prompt-examples.md) for best practices
 4. **🎯 Practice**: Start with simple domain-specific requests, then progress to multi-domain challenges
@@ -160,7 +160,7 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 
 ## Documentation
 
-📚 **[Complete Documentation Available](docs/README.md)**
+📚 **[Complete Documentation Available](docs/index.md)**
 
 - **[User Guide](docs/user-guide.md)** - Comprehensive guide to effective usage
 - **[Quick Reference](docs/quick-reference.md)** - Common patterns and templates  
