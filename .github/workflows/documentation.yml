@@ -23,139 +23,29 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Check documentation completeness
-      run: |
-        echo "🔍 Checking documentation completeness..."
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
         
-        # Verify all documentation files exist
-        required_files=(
-          "docs/index.md"
-          "docs/user-guide.md"
-          "docs/quick-reference.md"
-          "docs/prompt-examples.md"
-          "README.md"
-          "brainstorming/SKILL.md"
-        )
+    - name: Comprehensive Documentation Validation
+      run: python validate_repository.py
         
-        missing_files=0
-        for file in "${required_files[@]}"; do
-          if [ ! -f "$file" ]; then
-            echo "❌ Missing required file: $file"
-            missing_files=1
-          else
-            echo "✅ Found: $file"
-          fi
-        done
-        
-        if [ "$missing_files" -eq 1 ]; then
-          echo "❌ Documentation completeness check failed"
-          exit 1
-        fi
-        
-        echo "✅ Documentation completeness validated"
-        
-    - name: Check for documentation consistency
-      run: |
-        echo "🔍 Checking documentation consistency..."
-        
-        # Check that skill count is consistent across files
-        main_readme_count=$(grep -o "130+ specialised" README.md | wc -l || echo "0")
-        docs_index_count=$(grep -o "130+" docs/index.md | wc -l || echo "0")
-        
-        if [ "$main_readme_count" -eq 0 ] || [ "$docs_index_count" -eq 0 ]; then
-          echo "❌ Skill count not consistently mentioned across documentation"
-          exit 1
-        fi
-        
-        echo "✅ Documentation consistency validated"
-        
-    - name: Validate table of contents in user guide
-      run: |
-        echo "🔍 Validating user guide structure..."
-        
-        # Check that user guide has proper structure
-        if ! grep -q "Table of Contents" docs/user-guide.md; then
-          echo "❌ User guide missing Table of Contents"
-          exit 1
-        fi
-        
-        if ! grep -q "Quick Start" docs/user-guide.md; then
-          echo "❌ User guide missing Quick Start section"
-          exit 1
-        fi
-        
-        if ! grep -q "Best Practices" docs/user-guide.md; then
-          echo "❌ User guide missing Best Practices section"
-          exit 1
-        fi
-        
-        echo "✅ User guide structure validated"
-        
-    - name: Check for proper markdown formatting
-      run: |
-        echo "🔍 Checking markdown formatting..."
-        
-        # Simple checks for common markdown issues
-        formatting_issues=0
-        
-        for file in README.md docs/*.md; do
-          echo "Checking $file..."
-          
-          # Check for proper heading hierarchy
-          if grep -n "^###.*" "$file" | head -1 | grep -q "^[1-9]:"; then
-            first_h3_line=$(grep -n "^###" "$file" | head -1 | cut -d: -f1)
-            if ! head -n $((first_h3_line - 1)) "$file" | grep -q "^##"; then
-              echo "❌ $file: H3 heading without preceding H2"
-              formatting_issues=1
-            fi
-          fi
-          
-          # Check for unescaped special characters in headings
-          if grep "^#.*[<>]" "$file"; then
-            echo "❌ $file: Unescaped special characters in heading"
-            formatting_issues=1
-          fi
-        done
-        
-        if [ "$formatting_issues" -eq 0 ]; then
-          echo "✅ Markdown formatting validated"
-        else
-          echo "❌ Markdown formatting issues found"
-          exit 1
-        fi
-        
-  check-no-duplicate-readmes:
-    name: Ensure No Duplicate READMEs
-    runs-on: ubuntu-latest
+  cross-platform-validation:
+    name: Cross-Platform Documentation Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Check for duplicate README files
-      run: |
-        echo "🔍 Checking for duplicate README files..."
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
         
-        readme_files=$(find . -name "README.md" -not -path "./.git/*")
-        readme_count=$(echo "$readme_files" | wc -l)
-        
-        if [ "$readme_count" -gt 1 ]; then
-          echo "❌ Multiple README.md files found:"
-          echo "$readme_files"
-          echo "Only one README.md should exist at the repository root"
-          exit 1
-        elif [ "$readme_count" -eq 0 ]; then
-          echo "❌ No README.md file found"
-          exit 1
-        else
-          echo "✅ Single README.md file found at repository root"
-        fi
-        
-        # Also check for any accidental readme files with different cases
-        if find . -iname "readme.md" -not -name "README.md" -not -path "./.git/*" | grep -q .; then
-          echo "❌ Found readme files with incorrect case:"
-          find . -iname "readme.md" -not -name "README.md" -not -path "./.git/*"
-          exit 1
-        fi
-        
-        echo "✅ README file structure validated"
+    - name: Run Cross-Platform Validation
+      run: python validate_repository.py

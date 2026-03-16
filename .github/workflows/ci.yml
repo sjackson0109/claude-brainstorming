@@ -20,113 +20,15 @@ jobs:
       with:
         python-version: '3.11'
         
-    - name: Repository Structure Validation
+    - name: Comprehensive Repository Validation
       run: |
-        echo "🏗️ Validating repository structure..."
+        echo "🔍 Running comprehensive repository validation..."
+        python validate_repository.py
         
-        # Core structure validation
-        required_items=(
-          "brainstorming/SKILL.md:file"
-          "brainstorming/references:dir"
-          "docs/index.md:file"
-          "docs/user-guide.md:file"
-          "docs/quick-reference.md:file"
-          "docs/prompt-examples.md:file"
-          "README.md:file"
-          "create_skill.py:file"
-        )
-        
-        validation_failed=0
-        for item in "${required_items[@]}"; do
-          path=$(echo $item | cut -d: -f1)
-          type=$(echo $item | cut -d: -f2)
-          
-          if [ "$type" == "file" ] && [ ! -f "$path" ]; then
-            echo "❌ Missing required file: $path"
-            validation_failed=1
-          elif [ "$type" == "dir" ] && [ ! -d "$path" ]; then
-            echo "❌ Missing required directory: $path"
-            validation_failed=1
-          else
-            echo "✅ Found: $path"
-          fi
-        done
-        
-        if [ "$validation_failed" -eq 1 ]; then
-          exit 1
-        fi
-        
-    - name: Skill Count Validation
-      run: |
-        echo "📊 Validating skill count..."
-        
-        actual_count=$(find brainstorming/references -name "*.md" | wc -l)
-        
-        if [ "$actual_count" -lt 130 ]; then
-          echo "❌ Insufficient skills: found $actual_count, expected ≥130"
-          exit 1
-        fi
-        
-        echo "✅ Skill count validated: $actual_count skills"
-        
-    - name: Content Quality Validation
-      run: |
-        echo "📝 Validating content quality..."
-        
-        # Check main skill file has proper structure
-        if ! grep -q "Brainstorming Orchestrator" brainstorming/SKILL.md; then
-          echo "❌ Main skill file missing proper title"
-          exit 1
-        fi
-        
-        # Check for domain mapping in orchestrator
-        if ! grep -q "references/" brainstorming/SKILL.md; then
-          echo "❌ Main skill file doesn't reference the skills directory"
-          exit 1
-        fi
-        
-        # Validate documentation links
-        broken_docs_links=0
-        for file in docs/*.md README.md; do
-          # Check for obvious broken internal links
-          if grep -q "](docs/README.md)" "$file"; then
-            echo "❌ Found reference to old docs/README.md in $file"
-            broken_docs_links=1
-          fi
-        done
-        
-        if [ "$broken_docs_links" -eq 1 ]; then
-          exit 1
-        fi
-        
-        echo "✅ Content quality validated"
-        
-    - name: Packaging Test
+    - name: Test Skill Packaging
       run: |
         echo "📦 Testing skill packaging..."
-        
         python create_skill.py -path "./brainstorming"
         
-        if [ ! -f "brainstorming.skill" ]; then
-          echo "❌ Skill packaging failed"
-          exit 1
-        fi
-        
-        file_size=$(stat -c%s "brainstorming.skill")
-        if [ "$file_size" -lt 100000 ]; then
-          echo "❌ Packaged file too small: $file_size bytes"
-          exit 1
-        fi
-        
-        echo "✅ Skill packaging successful (${file_size} bytes)"
-        
-    - name: Final Validation Summary
-      run: |
-        echo "🎉 All validation checks passed!"
-        echo ""
-        echo "✅ Repository structure validated"
-        echo "✅ Skill count verified ($(find brainstorming/references -name "*.md" | wc -l) skills)"
-        echo "✅ Content quality checked"
-        echo "✅ Packaging test successful"
-        echo ""
-        echo "Repository is ready for merge! 🚀"
+        # Validate the packaged skill file
+        python validate_skill.py -file "brainstorming.skill"
