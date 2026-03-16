@@ -74,33 +74,8 @@ jobs:
       run: |
         echo "🔍 Testing skill file content structure..."
         
-        # Extract and validate content structure
-        python -c "
-import zipfile
-import sys
-
-try:
-    with zipfile.ZipFile('brainstorming.skill', 'r') as zf:
-        files = zf.namelist()
-        
-        # Check for main skill file
-        if 'SKILL.md' not in files:
-            print('❌ SKILL.md not found in package')
-            sys.exit(1)
-        
-        # Check for references directory structure
-        ref_files = [f for f in files if f.startswith('references/') and f.endswith('.md')]
-        if len(ref_files) < 130:
-            print(f'❌ Expected at least 130 reference files, found {len(ref_files)}')
-            sys.exit(1)
-            
-        print(f'✅ Skill package contains {len(ref_files)} reference files')
-        print('✅ Skill file content structure validated')
-        
-except Exception as e:
-    print(f'❌ Error validating skill package: {e}')
-    sys.exit(1)
-"
+        # Use dedicated validation script instead of inline Python
+        python validate_skill.py -file "brainstorming.skill"
         
     - name: Validate skill count consistency
       run: |
@@ -152,3 +127,6 @@ except Exception as e:
           exit 1
         fi
         echo "✅ Package created successfully on ${{ matrix.os }}"
+        
+        # Use validation script for cross-platform testing
+        python validate_skill.py -file "brainstorming.skill"
