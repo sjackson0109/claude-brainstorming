@@ -148,10 +148,29 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 
 ## Getting Started
 
-1. **Review the main orchestrator**: `./brainstorming/SKILL.md`
-2. **Explore reference skills**: Browse `./brainstorming/references/` for specific domains
-3. **Submit brainstorming requests**: The orchestrator will automatically route to relevant expertise
-4. **Multi-domain requests**: Complex challenges automatically invoke multiple relevant skills
+1. **📖 Read the Documentation**: Start with the [comprehensive user guide](docs/README.md)
+2. **⚡ Quick Reference**: Use [common prompt patterns](docs/quick-reference.md) for immediate results  
+3. **💡 Study Examples**: Review [real conversation examples](docs/prompt-examples.md) for best practices
+4. **🎯 Practice**: Start with simple domain-specific requests, then progress to multi-domain challenges
+
+### First Steps
+- **Review the main orchestrator**: `./brainstorming/SKILL.md`
+- **Explore reference skills**: Browse `./brainstorming/references/` for specific domains
+- **Try a simple request**: "Use your Brainstorming skill to support me with [your challenge]"
+
+## Documentation
+
+📚 **[Complete Documentation Available](docs/README.md)**
+
+- **[User Guide](docs/user-guide.md)** - Comprehensive guide to effective usage
+- **[Quick Reference](docs/quick-reference.md)** - Common patterns and templates  
+- **[Prompt Examples](docs/prompt-examples.md)** - Real examples and best practices
+
+**Key Topics Covered:**
+- How the intelligent routing system works
+- Crafting requests that trigger appropriate expertise
+- Multi-domain integration techniques
+- Advanced usage patterns and troubleshooting
 
 ---
 
