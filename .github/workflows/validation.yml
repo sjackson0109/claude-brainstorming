@@ -1,0 +1,165 @@
+name: Repository Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ feature/*, develop ]
+
+jobs:
+  validate-structure:
+    name: Validate Repository Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Validate main skill file exists
+      run: |
+        if [ ! -f "brainstorming/SKILL.md" ]; then
+          echo "❌ Main skill file brainstorming/SKILL.md is missing"
+          exit 1
+        fi
+        echo "✅ Main skill file found"
+        
+    - name: Validate references directory structure
+      run: |
+        if [ ! -d "brainstorming/references" ]; then
+          echo "❌ References directory brainstorming/references is missing"
+          exit 1
+        fi
+        
+        # Count reference files
+        ref_count=$(find brainstorming/references -name "*.md" | wc -l)
+        if [ "$ref_count" -lt 130 ]; then
+          echo "❌ Expected at least 130 reference skills, found $ref_count"
+          exit 1
+        fi
+        echo "✅ Found $ref_count reference skill files"
+        
+    - name: Validate documentation structure
+      run: |
+        if [ ! -f "docs/index.md" ]; then
+          echo "❌ Documentation index docs/index.md is missing"
+          exit 1
+        fi
+        if [ ! -f "docs/user-guide.md" ]; then
+          echo "❌ User guide docs/user-guide.md is missing"
+          exit 1
+        fi
+        if [ ! -f "docs/quick-reference.md" ]; then
+          echo "❌ Quick reference docs/quick-reference.md is missing"
+          exit 1
+        fi
+        if [ ! -f "docs/prompt-examples.md" ]; then
+          echo "❌ Prompt examples docs/prompt-examples.md is missing"
+          exit 1
+        fi
+        echo "✅ Documentation structure validated"
+        
+    - name: Validate README files
+      run: |
+        if [ ! -f "README.md" ]; then
+          echo "❌ Main README.md is missing"
+          exit 1
+        fi
+        if [ -f "docs/README.md" ]; then
+          echo "❌ Duplicate README.md found in docs directory"
+          exit 1
+        fi
+        echo "✅ README file structure validated"
+        
+  validate-content:
+    name: Validate Content Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check for UK English consistency
+      run: |
+        # Check for common US spellings that should be UK
+        us_spellings_found=0
+        
+        # Check for "ize" endings (should be "ise")
+        if grep -r "optimiz\|organiz\|standard\|customi\|recogniz" --include="*.md" . | grep -v "\.git" | grep -v "optimize\w*\|organize\w*\|standardize\w*\|customize\w*\|recognize\w*"; then
+          echo "❌ Found potential US spellings ending in 'ize'"
+          us_spellings_found=1
+        fi
+        
+        # Check for "tion" vs "sion" words
+        if grep -r "organization\|optimization" --include="*.md" . | grep -v "\.git"; then
+          echo "❌ Found potential US spellings: organization/optimization (should be organisation/optimisation)"
+          us_spellings_found=1
+        fi
+        
+        if [ "$us_spellings_found" -eq 0 ]; then
+          echo "✅ UK English consistency validated"
+        else
+          echo "❌ UK English consistency check failed"
+          exit 1
+        fi
+        
+    - name: Validate skill file naming convention
+      run: |
+        # Check that reference files follow naming convention
+        invalid_names=0
+        
+        for file in brainstorming/references/*.md; do
+          filename=$(basename "$file" .md)
+          # Check for spaces or uppercase letters (should be lowercase with hyphens)
+          if [[ "$filename" =~ [[:upper:]] ]] || [[ "$filename" =~ [[:space:]] ]]; then
+            echo "❌ Invalid filename: $filename (should be lowercase with hyphens)"
+            invalid_names=1
+          fi
+        done
+        
+        if [ "$invalid_names" -eq 0 ]; then
+          echo "✅ Skill file naming convention validated"
+        else
+          echo "❌ Skill file naming convention check failed"
+          exit 1
+        fi
+        
+    - name: Validate no broken internal links
+      run: |
+        # Check for broken internal markdown links
+        broken_links=0
+        
+        for file in $(find . -name "*.md" -not -path "./.git/*"); do
+          echo "Checking internal links in $file..."
+          
+          # Extract markdown links in format [text](path)
+          grep -o '\[.*\](.*\.md\|.*\.md#.*\|docs/.*\|brainstorming/.*)' "$file" | while read -r link; do
+            # Extract the path part
+            path=$(echo "$link" | sed 's/.*](\([^)]*\)).*/\1/' | sed 's/#.*//')
+            
+            # Skip external links
+            if [[ "$path" =~ ^https?:// ]]; then
+              continue
+            fi
+            
+            # Convert relative path to absolute
+            if [[ "$path" == ./* ]]; then
+              full_path=$(dirname "$file")/${path#./}
+            elif [[ "$path" != /* ]]; then
+              full_path=$(dirname "$file")/$path
+            else
+              full_path=$path
+            fi
+            
+            if [ ! -f "$full_path" ]; then
+              echo "❌ Broken internal link in $file: $link -> $full_path"
+              broken_links=1
+            fi
+          done
+        done
+        
+        if [ "$broken_links" -eq 0 ]; then
+          echo "✅ Internal links validated"
+        else
+          echo "❌ Found broken internal links"
+          exit 1
+        fi
