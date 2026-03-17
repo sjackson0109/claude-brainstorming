@@ -18,14 +18,14 @@ def validate_skill_package(skill_file_path):
         with zipfile.ZipFile(skill_file_path, 'r') as zf:
             files = zf.namelist()
             
-            print(f"📦 Validating {skill_file_path}...")
+            print(f"[VALIDATE] Validating {skill_file_path}...")
             print(f"   Package contains {len(files)} files")
             
             # Check for main skill file
             if 'SKILL.md' not in files:
-                print('❌ SKILL.md not found in package')
+                print('[ERROR] SKILL.md not found in package')
                 return False
-            print('✅ Main SKILL.md file found')
+            print('[OK] Main SKILL.md file found')
             
             # Check for references directory structure
             ref_files = [f for f in files if f.startswith('references/') and f.endswith('.md')]
@@ -50,18 +50,18 @@ def validate_skill_package(skill_file_path):
                     missing_key_skills.append(skill)
             
             if missing_key_skills:
-                print(f'❌ Missing key skill files: {missing_key_skills}')
+                print(f'[ERROR] Missing key skill files: {missing_key_skills}')
                 return False
             
-            print('✅ Key skill files validated')
-            print('✅ Skill package validation successful')
+            print('[OK] Key skill files validated')
+            print('[OK] Skill package validation successful')
             return True
             
     except zipfile.BadZipFile:
-        print(f'❌ Invalid zip file: {skill_file_path}')
+        print(f'[ERROR] Invalid zip file: {skill_file_path}')
         return False
     except Exception as e:
-        print(f'❌ Error validating skill package: {e}')
+        print(f'[ERROR] Error validating skill package: {e}')
         return False
 
 def main():
