@@ -33,7 +33,7 @@ def validate_skill_package(skill_file_path):
                 print(f'❌ Expected at least 130 reference files, found {len(ref_files)}')
                 return False
             
-            print(f'✅ Found {len(ref_files)} reference skill files')
+            print(f'[OK] Found {len(ref_files)} reference skill files')
             
             # Validate some key reference files exist
             key_skills = [
