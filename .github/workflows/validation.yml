@@ -1,0 +1,25 @@
+name: Repository Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ feature/*, develop ]
+
+jobs:
+  validate-structure:
+    name: Validate Repository Structure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Structure and Content Validation
+      run: python validate_repository.py
+        

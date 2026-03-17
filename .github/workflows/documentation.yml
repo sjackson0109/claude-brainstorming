@@ -1,0 +1,51 @@
+name: Documentation Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths: 
+      - 'docs/**'
+      - 'README.md'
+      - 'brainstorming/SKILL.md'
+  push:
+    branches: [ feature/*, develop ]
+    paths: 
+      - 'docs/**'
+      - 'README.md'
+      - 'brainstorming/SKILL.md'
+
+jobs:
+  validate-documentation:
+    name: Validate Documentation Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Comprehensive Documentation Validation
+      run: python validate_repository.py
+        
+  cross-platform-validation:
+    name: Cross-Platform Documentation Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Run Cross-Platform Validation
+      run: python validate_repository.py

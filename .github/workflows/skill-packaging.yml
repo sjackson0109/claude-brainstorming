@@ -1,0 +1,112 @@
+name: Skill Packaging Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ feature/*, develop ]
+
+jobs:
+  test-skill-packaging:
+    name: Test Skill Packaging
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Test create_skill.py script exists and is valid
+      run: |
+        echo "🔍 Validating create_skill.py script..."
+        
+        if [ ! -f "create_skill.py" ]; then
+          echo "❌ create_skill.py script not found"
+          exit 1
+        fi
+        
+        # Check if the script is valid Python
+        python -m py_compile create_skill.py
+        if [ $? -ne 0 ]; then
+          echo "❌ create_skill.py has syntax errors"
+          exit 1
+        fi
+        
+        echo "✅ create_skill.py script validated"
+        
+    - name: Test skill packaging process
+      run: |
+        echo "🔍 Testing skill packaging..."
+        
+        # Run the skill packaging script
+        python create_skill.py -path "./brainstorming"
+        
+        if [ $? -ne 0 ]; then
+          echo "❌ Skill packaging failed"
+          exit 1
+        fi
+        
+        echo "✅ Skill packaging completed successfully"
+        
+    - name: Validate packaged skill file
+      run: |
+        echo "🔍 Validating packaged .skill file..."
+        
+        if [ ! -f "brainstorming.skill" ]; then
+          echo "❌ brainstorming.skill file was not created"
+          exit 1
+        fi
+        
+        # Use Python to check file size for cross-platform compatibility
+        python -c "import os; file_size = os.path.getsize('brainstorming.skill'); print(f'❌ Packaged skill file is too small ({file_size} bytes). Expected > 100KB') if file_size < 100000 else print(f'✅ Packaged skill file validated (Size: {file_size} bytes)'); exit(1) if file_size < 100000 else exit(0)"
+        
+    - name: Test skill file content structure
+      run: |
+        echo "🔍 Testing skill file content structure..."
+        
+        # Use dedicated validation script instead of inline Python
+        python validate_skill.py -file "brainstorming.skill"
+        
+    - name: Validate skill count consistency
+      run: |
+        echo "🔍 Validating skill count consistency..."
+        
+        # Use Python for cross-platform file counting  
+        python -c "import os, re; ref_dir='brainstorming/references'; actual_count=len([f for f in os.listdir(ref_dir) if f.endswith('.md')]) if os.path.exists(ref_dir) else 0; print(f'Found {actual_count} skills in references directory'); readme_content=open('README.md', 'r', encoding='utf-8').read(); exit(1) if not re.search(r'130.*skills|130.*specialised', readme_content) else None; exit(1) if actual_count < 130 else print(f'✅ Skill count consistency validated ({actual_count} skills found)')"
+        
+  test-cross-platform-compatibility:
+    name: Test Cross-Platform Compatibility
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.9', '3.11']
+        
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Test create_skill.py on ${{ matrix.os }}
+      run: |
+        python create_skill.py -path "./brainstorming"
+        
+    - name: Validate package creation
+      shell: bash
+      run: |
+        if [ ! -f "brainstorming.skill" ]; then
+          echo "❌ Package creation failed on ${{ matrix.os }}"
+          exit 1
+        fi
+        echo "✅ Package created successfully on ${{ matrix.os }}"
+        
+        # Use validation script for cross-platform testing
+        python validate_skill.py -file "brainstorming.skill"

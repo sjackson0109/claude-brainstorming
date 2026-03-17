@@ -1,0 +1,34 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches-ignore: [ main ]
+  push:
+    branches: [ feature/*, develop ]
+
+jobs:
+  comprehensive-validation:
+    name: Comprehensive Repository Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Comprehensive Repository Validation
+      run: |
+        echo "🔍 Running comprehensive repository validation..."
+        python validate_repository.py
+        
+    - name: Test Skill Packaging
+      run: |
+        echo "📦 Testing skill packaging..."
+        python create_skill.py -path "./brainstorming"
+        
+        # Validate the packaged skill file
+        python validate_skill.py -file "brainstorming.skill"
