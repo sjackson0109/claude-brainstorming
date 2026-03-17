@@ -112,10 +112,10 @@ def validate_no_duplicate_readmes():
     print("📄 Checking for duplicate README files...")
     
     readme_files = []
-    for root, dirs, files in os.walk("."):
-        # Skip .git directory
-        if ".git" in root:
-            continue
+    for root, dirs, files in os.walk(".", topdown=True):
+        # Skip .git directory (but not e.g. .github)
+        if ".git" in dirs:
+            dirs.remove(".git")
         for file in files:
             if file.upper() == "README.MD":
                 readme_files.append(os.path.join(root, file))
