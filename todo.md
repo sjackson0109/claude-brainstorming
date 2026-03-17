@@ -12,18 +12,18 @@
 - [ ] next-js-security-architecture skill (Next.js SSR/SSG security)
 - [ ] supabase-security-integration skill (backend-as-a-service security)
 
-### Phase 3: Penetration Testing Skills (Planned)
-- [ ] web-application-penetration-testing skill
-- [ ] network-penetration-testing skill
-- [ ] social-engineering-assessment skill
+### Phase 3: Penetration Testing Skills (In Progress)
+- [x] web-application-penetration-testing skill
+- [x] network-penetration-testing skill  
+- [x] api-security-testing skill
 - [ ] mobile-application-penetration-testing skill
-- [ ] api-security-testing skill
 - [ ] cloud-penetration-testing skill
 - [ ] wireless-network-penetration-testing skill
+- [ ] social-engineering-assessment skill
 - [ ] physical-security-assessment skill
 
-### Phase 4: Red Team Operations Skills (Planned)
-- [ ] red-team-operations skill
+### Phase 4: Red Team Operations Skills (In Progress)
+- [x] red-team-operations-planning skill
 - [ ] adversary-simulation skill
 - [ ] threat-intelligence-operations skill
 - [ ] cyber-threat-hunting skill
