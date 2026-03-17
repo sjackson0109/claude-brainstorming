@@ -1,0 +1,121 @@
+name: General Question
+description: Ask questions about using the brainstorming skills or contributing to the project
+title: "[Question]: "
+labels: ["question", "help-wanted"]
+projects: ["sjackson0109/1"]
+assignees:
+  - sjackson0109
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## General Question
+        Ask questions about using the brainstorming skills, contributing to the project, or anything else related to this repository.
+
+  - type: dropdown
+    id: question-category
+    attributes:
+      label: Question Category
+      description: What type of question is this?
+      options:
+        - How to Use Skills
+        - Skill Selection/Recommendations
+        - Contributing to the Project
+        - Technical Setup/Installation
+        - Skill Development Process
+        - Project Roadmap/Features
+        - Best Practices
+        - Integration with Claude
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question-details
+    attributes:
+      label: Your Question
+      description: Please provide your question in detail
+      placeholder: What would you like to know?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context & Background
+      description: Provide any relevant context that might help us answer your question
+      placeholder: |
+        - What are you trying to accomplish?
+        - What have you already tried?
+        - Any specific constraints or requirements?
+    validations:
+      required: false
+
+  - type: input
+    id: related-skills
+    attributes:
+      label: Related Skills
+      description: If your question relates to specific skills, list them here
+      placeholder: e.g., technical-architecture, business-strategy, design-thinking
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: Your Experience Level
+      description: How familiar are you with brainstorming methodologies?
+      options:
+        - New to brainstorming techniques
+        - Some experience with brainstorming
+        - Experienced with structured brainstorming
+        - Expert in creative problem-solving methodologies
+        - Professional facilitator/consultant
+    validations:
+      required: false
+
+  - type: dropdown
+    id: use-case
+    attributes:
+      label: Primary Use Case
+      description: What's your main use case for these brainstorming skills?
+      options:
+        - Product Development
+        - Business Strategy
+        - Technical Problem Solving
+        - Creative Projects
+        - Research & Analysis
+        - Team Facilitation
+        - Personal Development
+        - Academic/Educational
+        - Consulting Work
+        - Other
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected-outcome
+    attributes:
+      label: What You're Hoping to Achieve
+      description: What outcome are you looking for from your question?
+      placeholder: What would a helpful answer look like to you?
+
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Due Diligence
+      description: Have you checked these resources first?
+      options:
+        - label: I've searched existing issues and discussions
+          required: false
+        - label: I've checked the documentation (README, user guide, etc.)
+          required: false
+        - label: I've looked at the prompt examples
+          required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this question, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

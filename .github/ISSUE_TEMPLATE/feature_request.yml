@@ -1,0 +1,140 @@
+name: Feature Request
+description: Suggest a new feature or improvement for the brainstorming skills
+title: "[Feature]: "
+labels: ["enhancement", "feature-request"]
+projects: ["sjackson0109/1"]
+assignees:
+  - sjackson0109
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        Thank you for suggesting a new feature! Your ideas help make this brainstorming toolkit more comprehensive and useful.
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature are you requesting?
+      options:
+        - New Skill Domain
+        - Skill Enhancement
+        - Orchestrator Improvement
+        - Documentation Update
+        - Tooling/Infrastructure
+        - Integration Feature
+        - Performance Enhancement
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: feature-title
+    attributes:
+      label: Feature Title
+      description: A concise title for your feature request
+      placeholder: e.g., "Add quantum computing brainstorming skill"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What gap does it fill?
+      placeholder: Describe the problem or opportunity this feature addresses
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your desired solution in detail
+      placeholder: How would this feature work? What would it look like?
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-stories
+    attributes:
+      label: User Stories
+      description: Provide specific use cases for this feature
+      placeholder: |
+        - As a [type of user], I want [goal] so that [benefit]
+        - As a [type of user], I want [goal] so that [benefit]
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Critical - Blocking my work
+        - High - Would significantly improve my workflow
+        - Medium - Nice to have
+        - Low - Minor improvement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: skill-category
+    attributes:
+      label: Target Skill Category
+      description: Which category would this feature affect?
+      options:
+        - Technical Skills
+        - Business Strategy Skills  
+        - Design/UX Skills
+        - Cybersecurity Skills
+        - Analytics Skills
+        - Innovation Skills
+        - Operations Skills
+        - Cross-cutting/Multiple Categories
+        - New Category
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or workarounds you've considered
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, mockups, examples, or references about the feature
+
+  - type: input
+    id: related-skills
+    attributes:
+      label: Related Skills
+      description: List any existing skills this feature would complement or enhance
+      placeholder: e.g., technical-architecture, business-strategy
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Your involvement in this feature
+      options:
+        - label: I would be willing to help implement this feature
+          required: false
+        - label: I can provide domain expertise for this feature
+          required: false
+        - label: I can help test this feature
+          required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this feature request, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

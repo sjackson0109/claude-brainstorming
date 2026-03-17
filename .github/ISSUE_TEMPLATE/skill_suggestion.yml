@@ -1,0 +1,163 @@
+name: New Skill Suggestion
+description: Propose a new brainstorming skill for a specific domain or use case
+title: "[Skill]: "
+labels: ["skill-suggestion", "enhancement"]
+projects: ["sjackson0109/1"]
+assignees:
+  - sjackson0109
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## New Skill Suggestion
+        Propose a new specialised brainstorming skill to expand our collection! Currently we have 130+ skills across technical, business, design, and other domains.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Proposed Skill Name
+      description: What should this skill be called? (use kebab-case)
+      placeholder: e.g., quantum-computing, sustainable-packaging, ai-ethics
+    validations:
+      required: true
+
+  - type: dropdown
+    id: skill-category
+    attributes:
+      label: Skill Category
+      description: Which category does this skill belong to?
+      options:
+        - Technical Skills
+        - Business Strategy Skills
+        - Design/UX Skills  
+        - Cybersecurity Skills
+        - Analytics Skills
+        - Innovation Skills
+        - Operations Skills
+        - Sustainability Skills
+        - Healthcare/Medical Skills
+        - Legal/Compliance Skills
+        - Financial Services Skills
+        - Education/Training Skills
+        - New Category (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: skill-description
+    attributes:
+      label: Skill Description
+      description: Provide a comprehensive description of what this skill should cover
+      placeholder: |
+        Describe the domain, methodology, or specialisation this skill should address.
+        What specific knowledge or approach would it bring to brainstorming sessions?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases & Applications
+      description: Provide specific examples of when this skill would be valuable
+      placeholder: |
+        - When brainstorming [specific scenario]
+        - For projects involving [specific context]
+        - To address challenges in [specific domain]
+    validations:
+      required: true
+
+  - type: textarea
+    id: key-techniques
+    attributes:
+      label: Key Techniques & Methodologies
+      description: What specific techniques, frameworks, or methodologies should this skill include?
+      placeholder: |
+        List the key approaches, frameworks, or methodologies this skill should incorporate:
+        - Technique 1: [description]
+        - Framework 2: [description]
+        - Methodology 3: [description]
+    validations:
+      required: true
+
+  - type: textarea
+    id: target-audience
+    attributes:
+      label: Target Audience
+      description: Who would primarily benefit from this skill?
+      placeholder: e.g., Software architects, Product managers, UX designers, Security professionals
+    validations:
+      required: true
+
+  - type: input
+    id: related-skills
+    attributes:
+      label: Related Existing Skills
+      description: Which current skills would complement or integrate with this one?
+      placeholder: e.g., technical-architecture, software-architecture, systems-thinking
+
+  - type: textarea
+    id: example-prompts
+    attributes:
+      label: Example Prompts
+      description: Provide 2-3 example prompts that would trigger this skill
+      placeholder: |
+        1. "Help me brainstorm [specific scenario using this skill]"
+        2. "I need ideas for [specific use case]"
+        3. "What are innovative approaches to [specific challenge]"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: complexity-level
+    attributes:
+      label: Complexity Level
+      description: How specialised or complex is this domain?
+      options:
+        - Beginner - Accessible to most users
+        - Intermediate - Requires some domain knowledge  
+        - Advanced - Highly specialised expertise
+        - Expert - Cutting-edge or niche specialisation
+    validations:
+      required: true
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How would we know this skill is working well?
+      placeholder: |
+        What outcomes or qualities should brainstorming sessions using this skill demonstrate?
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References & Sources
+      description: Provide relevant resources, frameworks, or expert sources for this domain
+      placeholder: |
+        - Framework/Methodology: [link or reference]
+        - Expert source: [link or reference]  
+        - Key literature: [reference]
+
+  - type: checkboxes
+    id: expertise
+    attributes:
+      label: Domain Expertise
+      description: Your background with this skill area
+      options:
+        - label: I have professional experience in this domain
+          required: false
+        - label: I would be willing to help develop this skill
+          required: false
+        - label: I can provide feedback on the implementation
+          required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this skill suggestion, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

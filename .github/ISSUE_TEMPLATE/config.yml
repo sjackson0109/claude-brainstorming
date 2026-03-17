@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 GitHub Discussions 
+    url: https://github.com/sjackson0109/claude-brainstorming/discussions
+    about: Join community discussions about brainstorming techniques, share experiences, and connect with other users
+  - name: 📖 Documentation
+    url: https://github.com/sjackson0109/claude-brainstorming/blob/main/docs/index.md
+    about: Read the complete documentation including user guide, quick reference, and prompt examples
+  - name: 🚀 Quick Start Guide
+    url: https://github.com/sjackson0109/claude-brainstorming/blob/main/docs/user-guide.md
+    about: Get started quickly with step-by-step instructions and examples

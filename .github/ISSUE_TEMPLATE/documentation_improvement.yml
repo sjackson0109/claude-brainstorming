@@ -1,0 +1,157 @@
+name: Documentation Improvement
+description: Suggest improvements to documentation, guides, or examples
+title: "[Docs]: "
+labels: ["documentation", "improvement"]
+projects: ["sjackson0109/1"]
+assignees:
+  - sjackson0109
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Documentation Improvement
+        Help us improve the documentation to make the brainstorming skills more accessible and useful for everyone.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs improvement?
+      options:
+        - README.md
+        - User Guide
+        - Quick Reference
+        - Prompt Examples
+        - Skill-specific Documentation
+        - API/Technical Documentation
+        - Contributing Guidelines
+        - Installation/Setup Instructions
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: affected-files
+    attributes:
+      label: Affected Files
+      description: Which files or sections need improvement?
+      placeholder: e.g., docs/user-guide.md, brainstorming/references/technical-architecture.md
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue Type
+      description: What kind of documentation issue is this?
+      options:
+        - Missing Information
+        - Incorrect/Outdated Information
+        - Unclear Instructions
+        - Missing Examples
+        - Poor Organisation/Structure
+        - Accessibility Issues
+        - Grammar/Spelling
+        - Formatting Issues
+        - Missing Cross-references
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-problem
+    attributes:
+      label: Current Problem
+      description: Describe what's wrong or missing in the current documentation
+      placeholder: Explain the specific issue you've identified
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-improvement
+    attributes:
+      label: Proposed Improvement
+      description: How should we fix or improve this documentation?
+      placeholder: Describe your suggested changes or additions
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user-impact
+    attributes:
+      label: User Impact
+      description: How does this documentation issue affect users?
+      options:
+        - Blocks new users from getting started
+        - Makes specific features hard to use
+        - Causes confusion about functionality
+        - Reduces overall user experience
+        - Minor inconvenience
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: target-audience
+    attributes:
+      label: Target Audience
+      description: Who would benefit most from this documentation improvement?
+      placeholder: e.g., New users, Advanced users, Developers, Specific skill domain users
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggested-content
+    attributes:
+      label: Suggested Content
+      description: If applicable, provide draft content or specific text suggestions
+      placeholder: Paste or write the improved content here
+
+  - type: input
+    id: related-skills
+    attributes:
+      label: Related Skills
+      description: If this affects specific skills, list them here
+      placeholder: e.g., technical-architecture, business-strategy
+
+  - type: textarea
+    id: examples-needed
+    attributes:
+      label: Examples Needed
+      description: What kind of examples would help illustrate this documentation?
+      placeholder: Describe any examples, use cases, or scenarios that would clarify the documentation
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How urgent is this documentation improvement?
+      options:
+        - Critical - Blocking users from using the tool
+        - High - Significantly impacts user experience  
+        - Medium - Noticeable improvement needed
+        - Low - Minor enhancement
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution Offer
+      description: How can you help with this improvement?
+      options:
+        - label: I can write the improved documentation
+          required: false
+        - label: I can provide examples or use cases
+          required: false
+        - label: I can review the updated documentation
+          required: false
+        - label: I can help with proofreading
+          required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this documentation issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

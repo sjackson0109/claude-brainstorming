@@ -174,4 +174,145 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 
 ---
 
-*This project provides comprehensive brainstorming capabilities across 129+ specialised domains, enabling expert-level guidance for any creative, strategic, or technical challenge.*
+## Contributing to the Project 🤝
+
+We welcome contributors from all backgrounds! Whether you're a domain expert, developer, or someone passionate about enhancing AI-powered brainstorming, there are many ways to contribute.
+
+### 🎯 **What We're Looking For**
+
+- **Domain Experts**: Add specialised skills in your field of expertise
+- **Content Creators**: Improve documentation, examples, and guides  
+- **Developers**: Enhance tooling, CI/CD workflows, and infrastructure
+- **Quality Reviewers**: Help validate and improve existing skills  
+- **Community Builders**: Foster discussions and knowledge sharing
+
+### 📋 **Contribution Guidelines**
+
+#### **Quality Standards**
+- All content must use **UK English** spelling and conventions
+- Skills must follow our **structured template** with Purpose, Core Capabilities, Implementation Framework
+- Code and documentation must pass **automated quality checks**
+- Changes require **comprehensive testing** across platforms
+
+#### **Content Requirements**
+- **Domain-specific expertise**: Contributions should demonstrate deep knowledge in the relevant field
+- **Practical applicability**: Skills must be immediately useful for real-world brainstorming scenarios
+- **Clear structure**: Follow our established patterns for consistency
+- **Cross-references**: Link related skills and concepts appropriately
+
+### 🔄 **Repository Workflow & Branch Protection**
+
+Our repository has **enterprise-grade protection** to maintain quality and enable safe collaboration:
+
+#### **Branch Protection Rules**
+- **Main branch protection**: Direct pushes to `main` are **prohibited**
+- **Required pull requests**: All changes must go through the PR process
+- **Mandatory reviews**: **One approving review required** before merge
+- **Self-approval prevention**: **Approvers cannot review their own PRs**
+- **Status checks required**: All **CI/CD workflows must pass** before merge
+- **Linear history**: Force pushes and merge commits are restricted
+
+#### **Automated Quality Gates**
+Our CI/CD pipeline automatically validates:
+- ✅ **Repository structure** and file organisation
+- ✅ **Content quality** and formatting standards  
+- ✅ **Cross-platform compatibility** (Ubuntu, Windows, macOS)
+- ✅ **UK English consistency** validation
+- ✅ **Documentation completeness** checks
+- ✅ **Skill packaging** and validation tests
+
+### 🛠️ **How to Contribute**
+
+#### **1. Choose Your Contribution Type**
+- **🆕 New Skill**: [Skill Suggestion Template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=skill_suggestion.yml)
+- **🐛 Bug Report**: [Bug Report Template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=bug_report.yml)  
+- **✨ Feature Request**: [Feature Request Template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=feature_request.yml)
+- **📚 Documentation**: [Documentation Improvement Template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=documentation_improvement.yml)
+- **❓ Questions**: [Question Template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=question.yml)
+
+#### **2. Development Process**
+
+**For Code/Content Changes:**
+1. **Fork** the repository
+2. **Create feature branch** from `main`: `git checkout -b feature/your-feature-name`
+3. **Make your changes** following our quality standards
+4. **Test locally** using provided validation scripts
+5. **Commit** with descriptive messages following conventional format
+6. **Push** your branch: `git push origin feature/your-feature-name`
+7. **Create Pull Request** with detailed description and context
+
+**For Issue Reports/Discussions:**
+1. **Search existing issues** to avoid duplicates
+2. **Use appropriate templates** for structured information
+3. **Provide detailed context** and reproducible examples
+4. **Engage constructively** with community feedback
+
+#### **3. Pull Request Requirements**
+
+**Before Submission:**
+- [ ] Changes follow UK English conventions
+- [ ] All automated tests pass locally
+- [ ] Documentation updated if needed
+- [ ] Clear, descriptive PR title and description
+- [ ] Linked to relevant issues if applicable
+
+**Review Process:**
+- **Automated validation**: All CI/CD checks must pass (✅)
+- **Peer review required**: **Another contributor must approve** ⚠️
+- **No self-approval**: PR creators **cannot approve their own changes**
+- **Quality standards**: Content and code quality will be reviewed
+- **Constructive discussion**: Engage with feedback professionally
+
+#### **4. Approval & Merge Process**
+
+**Approval Requirements:**
+- ✅ **All automated checks passing** (18 comprehensive tests)
+- ✅ **One approving review** from a different contributor
+- ✅ **No conflicts** with main branch
+- ✅ **Quality standards met** per reviewer assessment
+
+**Merge Methods:**
+- **Squash merge preferred** for feature additions
+- **Merge commit** for significant architectural changes
+- **Rebase** for simple fixes (rare)
+
+### 👥 **Community Expectations**
+
+#### **Collaborative Culture**
+- **Respectful communication**: Professional and constructive interactions
+- **Knowledge sharing**: Help others learn and grow
+- **Quality focus**: Prioritise excellence over speed
+- **Inclusive environment**: Welcome diverse perspectives and backgrounds
+
+#### **Review Standards**
+- **Thorough examination**: Reviews should be comprehensive and helpful
+- **Constructive feedback**: Focus on improving the contribution
+- **Timely response**: Aim to review PRs within reasonable timeframe
+- **Learning opportunity**: Use reviews to share knowledge and best practices
+
+### 🚀 **Getting Started**
+
+1. **💬 Join the Discussion**: [Contributors wanted discussion](https://github.com/sjackson0109/claude-brainstorming/discussions)
+2. **📖 Read Documentation**: Familiarise yourself with our [user guide](docs/user-guide.md)
+3. **🔍 Explore Skills**: Browse [existing skills](brainstorming/references/) to understand patterns
+4. **🎯 Pick First Contribution**: Choose an area matching your expertise
+5. **📝 Start Small**: Begin with documentation improvements or minor enhancements
+
+### 🏆 **Recognition**
+
+We value our contributors and provide recognition through:
+- **Contributors listing** in repository documentation
+- **Acknowledgment** in release notes and project updates  
+- **Community highlighting** for significant contributions
+- **Collaboration opportunities** for ongoing contributors
+
+### 💡 **Need Help?**
+
+- **General Questions**: Use our [Question template](https://github.com/sjackson0109/claude-brainstorming/issues/new?template=question.yml)
+- **Contribution Ideas**: Browse [Good First Issues](https://github.com/sjackson0109/claude-brainstorming/labels/good-first-issue)
+- **Technical Support**: Join [GitHub Discussions](https://github.com/sjackson0109/claude-brainstorming/discussions)
+- **Community Chat**: Engage with other contributors and maintainers
+
+---
+
+*This project provides comprehensive brainstorming capabilities across 130+ specialised domains, enabling expert-level guidance for any creative, strategic, or technical challenge.*

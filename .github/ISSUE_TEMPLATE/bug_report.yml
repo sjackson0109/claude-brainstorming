@@ -1,0 +1,100 @@
+name: Bug Report
+description: File a bug report to help us improve the brainstorming skills
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+projects: ["sjackson0109/1"]
+assignees:
+  - sjackson0109
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Your feedback helps improve the brainstorming skills for everyone.
+
+  - type: input
+    id: skill-affected
+    attributes:
+      label: Affected Skill
+      description: Which brainstorming skill is affected by this bug?
+      placeholder: e.g., technical-architecture, business-strategy, design-thinking
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Please provide clear steps to reproduce this issue
+      placeholder: |
+        1. Go to '...'
+        2. Use skill '...'
+        3. Enter prompt '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: skill-type
+    attributes:
+      label: Skill Category
+      description: What type of brainstorming skill is affected?
+      options:
+        - Technical Skills
+        - Business Strategy Skills
+        - Design/UX Skills
+        - Cybersecurity Skills
+        - Analytics Skills
+        - Innovation Skills
+        - Operations Skills
+        - Other/Unknown
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-output
+    attributes:
+      label: Actual Output
+      description: If applicable, paste the actual output or response you received
+      render: shell
+
+  - type: input
+    id: claude-version
+    attributes:
+      label: Claude Version
+      description: Which version of Claude are you using?
+      placeholder: e.g., Claude 3.5 Sonnet, Claude 3 Opus
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here, including screenshots if relevant
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
