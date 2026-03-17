@@ -20,21 +20,6 @@ jobs:
       with:
         python-version: '3.x'
         
-    - name: Comprehensive Repository Validation
+    - name: Structure and Content Validation
       run: python validate_repository.py
         
-  validate-content:
-    name: Validate Content Quality
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-        
-    - name: Additional Content Validation
-      run: python validate_repository.py
