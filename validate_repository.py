@@ -96,7 +96,7 @@ def validate_content_quality():
     if os.path.isfile(readme_file):
         with open(readme_file, 'r', encoding='utf-8') as f:
             content = f.read()
-            if not re.search(r"130.*skills|130.*specialised", content):
+            if not re.search(r"150.*skills|150.*specialised", content):
                 print("❌ README doesn't mention correct skill count")
                 all_valid = False
             else:
