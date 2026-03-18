@@ -1,6 +1,6 @@
 # Brainstorming Skill
 
-**An intelligent brainstorming orchestration system with 142+ specialised domain expertise skills, designed for Claude**
+**An intelligent brainstorming orchestration system with 146+ specialised domain expertise skills, designed for Claude**
 
 ---
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-The Brainstorming Orchestrator is an intelligent system that automatically routes brainstorming requests to the most relevant specialised domain expertise. Rather than providing generic creative thinking, it leverages 142 specialised skills across technical, business, design, innovation, and strategic domains to deliver expert-level guidance tailored to your specific challenge.
+The Brainstorming Orchestrator is an intelligent system that automatically routes brainstorming requests to the most relevant specialised domain expertise. Rather than providing generic creative thinking, it leverages 146 specialised skills across technical, business, design, innovation, and strategic domains to deliver expert-level guidance tailored to your specific challenge.
 
 ## How It Works
 
@@ -29,12 +29,12 @@ brainstorming/
 ├── todo.md                      # Project planning notes
 └── brainstorming/
     ├── SKILL.md                 # Main orchestrator skill
-    └── references/              # 142 specialised domain skills
+    └── references/              # 146 specialised domain skills
         ├── api-design.md
         ├── user-interface-design.md
         ├── strategic-planning.md
         ├── cybersecurity.md
-        └── ... (138+ more skills)
+        └── ... (142+ more skills)
 ```
 
 ## Usage Examples
@@ -49,7 +49,7 @@ brainstorming/
 
 **Result:** Integrates expertise from `digital-strategy.md`, `cybersecurity.md`, and `change-management-psychology.md`.
 
-## Domain Coverage (142 Skills)
+## Domain Coverage (146 Skills)
 
 ### Technical & Engineering (16 skills)
 - **Software Architecture**: `api-design.md`, `software-architecture.md`, `microservices-architecture.md`
@@ -57,11 +57,11 @@ brainstorming/
 - **Operations**: `devops-culture.md`, `machine-learning-operations.md`, `data-architecture.md`
 - **Specialised**: `3d-visualisation.md`, `context-diagram.md`, `troubleshooting-and-problem-solving.md`
 
-### Cybersecurity & Offensive Security (29 skills)
+### Cybersecurity & Offensive Security (33 skills)
 - **Strategic Security**: `cybersecurity.md`, `cis-controls.md`, `cmmc-cybersecurity.md`, `common-criteria.md`
 - **Web Application Security**: `secure-web-development.md`, `react-security-architecture.md`, `express-security-architecture.md`, `flask-security-architecture.md`
-- **Penetration Testing**: `web-application-penetration-testing.md`, `network-penetration-testing.md`, `api-security-testing.md`, `mobile-application-penetration-testing.md`, `cloud-penetration-testing.md`
-- **Red Team Operations**: `red-team-operations-planning.md', `threat-intelligence-operations.md`, `incident-response-strategy.md`
+- **Penetration Testing**: `web-application-penetration-testing.md`, `network-penetration-testing.md`, `api-security-testing.md`, `mobile-application-penetration-testing.md`, `cloud-penetration-testing.md`, `wireless-network-penetration-testing.md`
+- **Red Team Operations**: `red-team-operations-planning.md`, `threat-intelligence-operations.md`, `incident-response-strategy.md`, `adversary-simulation-infrastructure.md`, `cyber-threat-hunting.md`, `vulnerability-management-strategy.md`
 - **Risk & Compliance**: `risk-management-frameworks.md`, `gdpr-compliance-frameworks.md`, `iso-standards-compliance.md`, `eu-ai-act-compliance.md`
 - **Governance**: `cobit-governance.md`, `coso-framework.md`, `governance-frameworks.md`, `dora-resilience.md`
 
@@ -137,7 +137,7 @@ brainstorming/
 - **Strategic File Access**: Reads only relevant reference files to maintain efficiency
 - **Multi-Domain Integration**: Combines expertise from multiple domains when beneficial  
 - **UK English Standardisation**: All content follows British English conventions
-- **Comprehensive Coverage**: 141+ specialised skills across all major business domains
+- **Comprehensive Coverage**: 145+ specialised skills across all major business domains
 - **Intelligent Routing**: Automatic domain detection and appropriate skill selection
 
 ## File Organisation
