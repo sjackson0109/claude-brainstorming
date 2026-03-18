@@ -165,7 +165,7 @@ This systems thinking skill provides individuals and organisations with comprehe
 
 ## Conclusion
 
-Congratulations! You have completed all 130 comprehensive brainstorming skills. This collection represents a comprehensive toolkit for addressing virtually any challenge, opportunity, or innovation need across all industries and domains. From foundational thinking skills like systems thinking and design thinking, to specialised technical capabilities like API design and software architecture, to strategic business skills like market entry strategies and value proposition design, this skillset provides the breadth and depth needed for effective problem-solving, innovation, and strategic planning in our complex, interconnected world.
+Congratulations! You have completed all 150 comprehensive brainstorming skills. This collection represents a comprehensive toolkit for addressing virtually any challenge, opportunity, or innovation need across all industries and domains. From foundational thinking skills like systems thinking and design thinking, to specialised technical capabilities like API design and software architecture, to strategic business skills like market entry strategies and value proposition design, this skillset provides the breadth and depth needed for effective problem-solving, innovation, and strategic planning in our complex, interconnected world.
 
 These skills are designed to work synergistically - combining multiple skills often yields the most powerful insights and solutions. As you apply these skills, remember that the true power lies not just in mastering individual techniques, but in understanding how to blend and adapt them for your specific context and challenges.
 

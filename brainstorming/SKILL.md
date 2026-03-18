@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "Intelligent brainstorming orchestrator that automatically routes to specialised domain expertise. Activated by any brainstorming request - analyses the context and automatically invokes relevant sub-skills from 130+ specialised domains including technical, business, design, strategy, and innovation areas."
+description: "Intelligent brainstorming orchestrator that automatically routes to specialised domain expertise. Activated by any brainstorming request - analyses the context and automatically invokes relevant sub-skills from 150 specialised domains including technical, business, design, strategy, and innovation areas."
 ---
 
 # Brainstorming
@@ -17,7 +17,7 @@ description: "Intelligent brainstorming orchestrator that automatically routes t
 
 ## Activation
 
-This skill responds to any brainstorming, creative thinking, or problem-solving request and automatically identifies the most relevant specialised expertise from 130+ reference skills stored in `./references/`:
+This skill responds to any brainstorming, creative thinking, or problem-solving request and automatically identifies the most relevant specialised expertise from 150 reference skills stored in `./references/`:
 
 **Primary triggers:**
 - "Brainstorm ideas for [any topic]"
@@ -52,7 +52,7 @@ When a user request would benefit from specialised knowledge:
 
 ## Reference File Mapping
 
-The `./references/` directory contains 130 specialised brainstorming skills. **Read the appropriate file(s) when the user's request matches these domains:**
+The `./references/` directory contains 150 specialised brainstorming skills. **Read the appropriate file(s) when the user's request matches these domains:**
 
 ### Technical & Engineering
 **Read when user mentions: APIs, software, architecture, cloud, systems, networking, DevOps, MLOps**
