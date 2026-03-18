@@ -73,10 +73,10 @@ jobs:
         
     - name: Validate skill count consistency
       run: |
-        echo "🔍 Validating skill count consistency..."
+        echo "[VALIDATE] Validating skill count consistency..."
         
-        # Use Python for cross-platform file counting  
-        python -c "import os, re; ref_dir='brainstorming/references'; actual_count=len([f for f in os.listdir(ref_dir) if f.endswith('.md')]) if os.path.exists(ref_dir) else 0; print(f'Found {actual_count} skills in references directory'); readme_content=open('README.md', 'r', encoding='utf-8').read(); exit(1) if not re.search(r'130.*skills|130.*specialised', readme_content) else None; exit(1) if actual_count < 130 else print(f'✅ Skill count consistency validated ({actual_count} skills found)')"
+        # Use dynamic skill counting utility
+        python skill_counter.py --validate
         
   test-cross-platform-compatibility:
     name: Test Cross-Platform Compatibility

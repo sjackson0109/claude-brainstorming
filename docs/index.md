@@ -1,6 +1,6 @@
 # Documentation Index
 
-Welcome to the Brainstorming Orchestrator documentation. This comprehensive guide will help you maximise the value from our 130+ specialised domain expertise system.
+Welcome to the Brainstorming Orchestrator documentation. This comprehensive guide will help you maximise the value from our 150+ specialised domain expertise system.
 
 ## 📚 Documentation Structure
 
@@ -42,7 +42,7 @@ Real examples of effective interactions:
 ## 🔧 Support Resources
 
 ### Domain Expertise Covered
-Access expert-level guidance across **130+ specialised domains**:
+Access expert-level guidance across **150+ specialised domains**:
 
 - **Technical & Engineering** (16 skills) - Software architecture, cloud, networking, DevOps
 - **Cybersecurity & Risk** (17 skills) - Security frameworks, compliance, governance
@@ -98,7 +98,7 @@ brainstorming/
 │   └── prompt-examples.md      # Real examples & best practices
 ├── brainstorming/
 │   ├── SKILL.md                # Main orchestrator system
-│   └── references/             # 130+ specialised domain skills
+│   └── references/             # 150+ specialised domain skills
 └── README.md                   # Project overview
 ```
 

@@ -42,7 +42,7 @@ The simplest way to use the Brainstorming Orchestrator:
 
 ### Intelligent Routing Architecture
 
-The Brainstorming Orchestrator operates as a meta-skill that contains **130+ specialised domain expertise reference files**. Rather than providing generic brainstorming, it:
+The Brainstorming Orchestrator operates as a meta-skill that contains **150+ specialised domain expertise reference files**. Rather than providing generic brainstorming, it:
 
 1. **Analyses your request** for domain indicators and keywords
 2. **Maps to specific expertise** from the reference library
@@ -435,4 +435,4 @@ Deep-dive: "Let's explore the token management approach in more detail"
 
 ---
 
-*This user guide provides comprehensive instructions for effectively leveraging the Brainstorming Orchestrator's 130+ specialised domain expertise areas. For specific questions about domain capabilities or advanced usage techniques, consult the reference files in the `brainstorming/references/` directory.*
+*This user guide provides comprehensive instructions for effectively leveraging the Brainstorming Orchestrator's 150+ specialised domain expertise areas. For specific questions about domain capabilities or advanced usage techniques, consult the reference files in the `brainstorming/references/` directory.*

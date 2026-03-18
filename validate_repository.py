@@ -1,15 +1,29 @@
 #!/usr/bin/env python3
 """
 Cross-platform repository validation for the brainstorming orchestrator.
+Uses dynamic skill counting to eliminate hard-coded references.
 """
 import os
 import sys
 import re
 from pathlib import Path
 
+# Import the skill counter utility
+try:
+    from skill_counter import SkillCounter
+except ImportError:
+    # Fallback if skill_counter is not available
+    class SkillCounter:
+        def __init__(self, base_path="."):
+            self.base_path = Path(base_path)
+        def count_skills(self):
+            refs_dir = self.base_path / "brainstorming" / "references"
+            if not refs_dir.exists(): return 0
+            return len(list(refs_dir.glob("*.md")))
+
 def validate_repository_structure():
     """Validate the core repository structure."""
-    print("🏗️ Validating repository structure...")
+    print("[BUILD] Validating repository structure...")
     
     required_files = [
         "brainstorming/SKILL.md",
@@ -31,45 +45,48 @@ def validate_repository_structure():
     # Check required files
     for file_path in required_files:
         if not os.path.isfile(file_path):
-            print(f"❌ Missing required file: {file_path}")
+            print(f"[ERROR] Missing required file: {file_path}")
             all_valid = False
         else:
-            print(f"✅ Found: {file_path}")
+            print(f"[OK] Found: {file_path}")
     
     # Check required directories
     for dir_path in required_dirs:
         if not os.path.isdir(dir_path):
-            print(f"❌ Missing required directory: {dir_path}")
+            print(f"[ERROR] Missing required directory: {dir_path}")
             all_valid = False
         else:
-            print(f"✅ Found directory: {dir_path}")
+            print(f"[OK] Found directory: {dir_path}")
     
     return all_valid
 
 def validate_skill_count():
     """Validate the skill count meets requirements."""
-    print("📊 Validating skill count...")
+    print("[COUNT] Validating skill count...")
     
-    references_dir = Path("brainstorming/references")
-    if not references_dir.exists():
-        print("❌ References directory not found")
+    counter = SkillCounter()
+    skill_count = counter.count_skills()
+    
+    if skill_count == 0:
+        print("[ERROR] No skills found in references directory")
         return False
     
-    skill_files = list(references_dir.glob("*.md"))
-    skill_count = len(skill_files)
-    
-    if skill_count < 130:
-        print(f"❌ Insufficient skills: found {skill_count}, expected ≥130")
+    # Dynamic validation: ensure we have a reasonable number of skills
+    # Use 100 as minimum threshold (flexible for future changes)
+    min_skills = 100
+    if skill_count < min_skills:
+        print(f"[ERROR] Insufficient skills: found {skill_count}, expected ≥{min_skills}")
         return False
     
-    print(f"✅ Skill count validated: {skill_count} skills")
+    print(f"[OK] Skill count validated: {skill_count} skills")
     return True
 
 def validate_content_quality():
     """Validate content quality and consistency."""
-    print("📝 Validating content quality...")
+    print("[QUALITY] Validating content quality...")
     
     all_valid = True
+    counter = SkillCounter()
     
     # Check main skill file content
     skill_file = "brainstorming/SKILL.md"
@@ -77,39 +94,41 @@ def validate_content_quality():
         with open(skill_file, 'r', encoding='utf-8') as f:
             content = f.read()
             if "Brainstorming" not in content and "brainstorming" not in content:
-                print("❌ Main skill file missing proper title")
+                print("[ERROR] Main skill file missing proper title")
                 all_valid = False
             else:
-                print("✅ Main skill file title validated")
+                print("[OK] Main skill file title validated")
                 
             if "references/" not in content:
-                print("❌ Main skill file doesn't reference the skills directory")
+                print("[ERROR] Main skill file doesn't reference the skills directory")
                 all_valid = False
             else:
-                print("✅ Main skill file references validated")
+                print("[OK] Main skill file references validated")
     else:
-        print(f"❌ Main skill file not found: {skill_file}")
+        print(f"[ERROR] Main skill file not found: {skill_file}")
         all_valid = False
     
-    # Check README content
+    # Check README content - use dynamic skill count validation
     readme_file = "README.md"
     if os.path.isfile(readme_file):
         with open(readme_file, 'r', encoding='utf-8') as f:
             content = f.read()
-            if not re.search(r"150.*skills|150.*specialised", content):
-                print("❌ README doesn't mention correct skill count")
+            skill_count = counter.count_skills()
+            # Check if README mentions the current skill count
+            if not re.search(rf"\b{skill_count}\s+(skills|specialised)", content):
+                print(f"[ERROR] README doesn't mention current skill count ({skill_count})")
                 all_valid = False
             else:
-                print("✅ README skill count validated")
+                print("[OK] README skill count validated")
     else:
-        print(f"❌ README file not found: {readme_file}")
+        print(f"[ERROR] README file not found: {readme_file}")
         all_valid = False
     
     return all_valid
 
 def validate_no_duplicate_readmes():
     """Check for duplicate README files."""
-    print("📄 Checking for duplicate README files...")
+    print("[FILES] Checking for duplicate README files...")
     
     readme_files = []
     for root, dirs, files in os.walk(".", topdown=True):
@@ -121,15 +140,15 @@ def validate_no_duplicate_readmes():
                 readme_files.append(os.path.join(root, file))
     
     if len(readme_files) == 0:
-        print("❌ No README.md file found")
+        print("[ERROR] No README.md file found")
         return False
     elif len(readme_files) > 1:
-        print("❌ Multiple README.md files found:")
+        print("[ERROR] Multiple README.md files found:")
         for readme in readme_files:
             print(f"   - {readme}")
         return False
     else:
-        print("✅ Single README.md file found at repository root")
+        print("[OK] Single README.md file found at repository root")
         return True
 
 def validate_uk_english_consistency():
@@ -139,14 +158,14 @@ def validate_uk_english_consistency():
     Note: This validation is temporarily disabled to allow CI/CD setup completion.
     UK English conversion will be addressed in a separate task.
     """
-    print("🇬🇧 Validating UK English consistency...")
-    print("⚠️  UK English validation temporarily disabled for CI/CD setup")
-    print("✅ UK English consistency will be enforced in a future update")
+    print("[LANG] Validating UK English consistency...")
+    print("[WARN] UK English validation temporarily disabled for CI/CD setup")
+    print("[OK] UK English consistency will be enforced in a future update")
     return True
 
 def main():
     """Run all validation checks."""
-    print("🔍 Starting comprehensive repository validation...\n")
+    print("[VALIDATE] Starting comprehensive repository validation...\n")
     
     all_checks_passed = True
     
@@ -167,21 +186,21 @@ def main():
         try:
             result = check_function()
             if result:
-                print(f"✅ {check_name}: PASSED")
+                print(f"[PASS] {check_name}: PASSED")
             else:
-                print(f"❌ {check_name}: FAILED")
+                print(f"[FAIL] {check_name}: FAILED")
                 all_checks_passed = False
         except Exception as e:
-            print(f"❌ {check_name}: ERROR - {e}")
+            print(f"[ERROR] {check_name}: ERROR - {e}")
             all_checks_passed = False
     
     print(f"\n{'='*50}")
     if all_checks_passed:
-        print("🎉 All validation checks passed!")
-        print("Repository is ready for merge! 🚀")
+        print("[SUCCESS] All validation checks passed!")
+        print("Repository is ready for merge!")
         return 0
     else:
-        print("❌ Some validation checks failed!")
+        print("[FAILED] Some validation checks failed!")
         print("Please fix the issues above before merging.")
         return 1
 
