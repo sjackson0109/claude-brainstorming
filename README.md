@@ -176,4 +176,4 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 
 ---
 
-*This project provides comprehensive brainstorming capabilities across 129+ specialised domains, enabling expert-level guidance for any creative, strategic, or technical challenge.*
+*This project provides comprehensive brainstorming capabilities across 150 specialised domains, enabling expert-level guidance for any creative, strategic, or technical challenge.*
