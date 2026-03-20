@@ -174,6 +174,10 @@ All reference skills are stored in `./brainstorming/references/` with descriptiv
 - Multi-domain integration techniques
 - Advanced usage patterns and troubleshooting
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
 ---
 
 *This project provides comprehensive brainstorming capabilities across 150+ specialised domains, enabling expert-level guidance for any creative, strategic, or technical challenge.*
