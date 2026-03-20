@@ -1,0 +1,136 @@
+name: Manual Release Creation
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Mark as pre-release'
+        required: false
+        default: false
+        type: boolean
+      draft:
+        description: 'Create as draft release'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Generate skill file
+      run: |
+        python .github/scripts/create_skill.py -path brainstorming
+        echo "✓ Skill file generated"
+        
+    - name: Validate version format
+      run: |
+        if [[ ! "${{ github.event.inputs.version }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+.*$ ]]; then
+          echo "Error: Version must follow semantic versioning (e.g., v1.0.0)"
+          exit 1
+        fi
+        echo "✓ Version format valid: ${{ github.event.inputs.version }}"
+        
+    - name: Check if tag already exists
+      run: |
+        if git rev-parse "${{ github.event.inputs.version }}" >/dev/null 2>&1; then
+          echo "Error: Tag ${{ github.event.inputs.version }} already exists!"
+          exit 1
+        fi
+        echo "✓ Tag does not exist, proceeding with release"
+        
+    - name: Validate skill source directory
+      run: |
+        if [ ! -d "brainstorming" ]; then
+          echo "Error: brainstorming source directory not found!"
+          exit 1
+        fi
+        if [ ! -f "brainstorming/SKILL.md" ]; then
+          echo "Error: brainstorming/SKILL.md not found!"
+          exit 1
+        fi
+        echo "✓ Skill source validation passed"
+        
+    - name: Create and push tag
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git tag -a "${{ github.event.inputs.version }}" -m "Release ${{ github.event.inputs.version }}"
+        git push origin "${{ github.event.inputs.version }}"
+        
+    - name: Create release artifacts
+      run: |
+        mkdir -p release-artifact
+        cp brainstorming.skill release-artifact/
+        
+        # Create release info
+        cat > release-artifact/RELEASE_INFO.txt << EOF
+        Brainstorming Skill Release ${{ github.event.inputs.version }}
+        =========================================================
+        
+        Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        Version: ${{ github.event.inputs.version }}
+        Commit: $(git rev-parse --short HEAD)
+        Repository: ${{ github.repository }}
+        
+        This is an official release of the brainstorming.skill file.
+        
+        Contents:
+        - brainstorming.skill: The main skill file for Claude brainstorming orchestration
+        - RELEASE_INFO.txt: This metadata file
+        
+        For documentation and usage instructions, visit:
+        https://github.com/${{ github.repository }}
+        EOF
+        
+        # Create archives
+        cd release-artifact
+        tar -czf "../brainstorming-skill-${{ github.event.inputs.version }}.tar.gz" .
+        zip -r "../brainstorming-skill-${{ github.event.inputs.version }}.zip" .
+        cd ..
+        
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.event.inputs.version }}
+        name: Brainstorming Skill ${{ github.event.inputs.version }}
+        draft: ${{ github.event.inputs.draft }}
+        prerelease: ${{ github.event.inputs.prerelease }}
+        files: |
+          brainstorming-skill-${{ github.event.inputs.version }}.tar.gz
+          brainstorming-skill-${{ github.event.inputs.version }}.zip
+        body: |
+          ## Brainstorming Skill Release ${{ github.event.inputs.version }}
+          
+          This release contains the brainstorming.skill file for Claude AI brainstorming orchestration.
+          
+          ### 📦 What's Included
+          - `brainstorming.skill`: Main orchestration skill with 150+ domain expertise references
+          - `RELEASE_INFO.txt`: Release metadata and usage information
+          
+          ### 🚀 Quick Start
+          1. Download either the `.tar.gz` or `.zip` archive
+          2. Extract the `brainstorming.skill` file
+          3. Use with Claude AI for intelligent brainstorming assistance
+          
+          ### 📚 Documentation
+          For complete documentation, usage examples, and setup instructions, visit the [project repository](https://github.com/${{ github.repository }}).
+          
+          ---
+          **Generated from commit:** $(git rev-parse --short HEAD)  
+          **Release date:** $(date -u +"%Y-%m-%d")
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

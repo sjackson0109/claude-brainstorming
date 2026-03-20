@@ -1,0 +1,142 @@
+name: Create Release Artifact
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+
+jobs:
+  create-artifact:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+        
+    - name: Generate skill file
+      run: |
+        python .github/scripts/create_skill.py -path brainstorming
+        echo "✓ Skill file generated"
+        
+    - name: Validate skill file exists
+      run: |
+        if [ ! -f "brainstorming.skill" ]; then
+          echo "Error: brainstorming.skill file not found after generation!"
+          exit 1
+        fi
+        echo "✓ Skill file found"
+        
+    - name: Validate skill file content
+      run: |
+        # Check if file has content and is not empty
+        if [ ! -s "brainstorming.skill" ]; then
+          echo "Error: brainstorming.skill file is empty!"
+          exit 1
+        fi
+        
+        # Basic validation - ensure it contains expected skill structure
+        if ! grep -q "brainstorming" brainstorming.skill; then
+          echo "Warning: Skill file may not contain expected brainstorming content"
+        fi
+        
+        echo "✓ Skill file validation passed"
+        echo "File size: $(stat -c%s brainstorming.skill) bytes"
+        
+    - name: Get commit information
+      id: commit_info
+      run: |
+        echo "commit_hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        echo "commit_date=$(git log -1 --format=%Y%m%d)" >> $GITHUB_OUTPUT
+        echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        
+    - name: Create release directory
+      run: |
+        mkdir -p release-artifact
+        
+    - name: Copy skill file to release directory
+      run: |
+        cp brainstorming.skill release-artifact/
+        
+    - name: Create release metadata
+      run: |
+        cat > release-artifact/RELEASE_INFO.txt << EOF
+        Brainstorming Skill Release Artifact
+        =====================================
+        
+        Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        Commit: ${{ steps.commit_info.outputs.commit_hash }}
+        Branch: ${{ steps.commit_info.outputs.branch_name }}
+        Repository: ${{ github.repository }}
+        
+        This artifact contains the latest brainstorming.skill file from the main branch.
+        
+        Contents:
+        - brainstorming.skill: The main skill file for Claude brainstorming orchestration
+        - RELEASE_INFO.txt: This metadata file
+        
+        For documentation and usage instructions, visit:
+        https://github.com/${{ github.repository }}
+        EOF
+        
+    - name: Create timestamped archive
+      run: |
+        TIMESTAMP=${{ steps.commit_info.outputs.commit_date }}
+        COMMIT=${{ steps.commit_info.outputs.commit_hash }}
+        ARCHIVE_NAME="brainstorming-skill-${TIMESTAMP}-${COMMIT}"
+        
+        cd release-artifact
+        tar -czf "../${ARCHIVE_NAME}.tar.gz" .
+        zip -r "../${ARCHIVE_NAME}.zip" .
+        cd ..
+        
+        echo "ARCHIVE_NAME=${ARCHIVE_NAME}" >> $GITHUB_ENV
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: brainstorming-skill-${{ steps.commit_info.outputs.commit_date }}-${{ steps.commit_info.outputs.commit_hash }}
+        path: |
+          ${{ env.ARCHIVE_NAME }}.tar.gz
+          ${{ env.ARCHIVE_NAME }}.zip
+        retention-days: 90
+        
+    - name: Create release on tag
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          ${{ env.ARCHIVE_NAME }}.tar.gz
+          ${{ env.ARCHIVE_NAME }}.zip
+        body: |
+          ## Brainstorming Skill Release
+          
+          This release contains the latest brainstorming.skill file from the main branch.
+          
+          **What's included:**
+          - `brainstorming.skill`: Main orchestration skill for Claude
+          - `RELEASE_INFO.txt`: Release metadata and information
+          
+          **Generated from:**
+          - Commit: ${{ steps.commit_info.outputs.commit_hash }}
+          - Date: ${{ steps.commit_info.outputs.commit_date }}
+          
+          Download either the `.tar.gz` or `.zip` archive containing the skill file.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Summary
+      run: |
+        echo "## Release Artifact Created ✅" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **File**: brainstorming.skill" >> $GITHUB_STEP_SUMMARY
+        echo "- **Commit**: ${{ steps.commit_info.outputs.commit_hash }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Archive**: ${{ env.ARCHIVE_NAME }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Size**: $(stat -c%s brainstorming.skill) bytes" >> $GITHUB_STEP_SUMMARY
