@@ -1,0 +1,34 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "brainstorming-skills",
+  "description": "Intelligent brainstorming orchestration system with 150 specialised domain expertise skills for Claude — covering technical, business, design, innovation, cybersecurity, and strategic domains.",
+  "owner": {
+    "name": "Simon Jackson",
+    "email": "sjackson0109@users.noreply.github.com"
+  },
+  "plugins": [
+    {
+      "name": "brainstorming",
+      "source": "./brainstorming",
+      "description": "Intelligent brainstorming orchestrator that automatically routes to 150 specialised domain expertise skills across technical, business, design, strategy, cybersecurity, and innovation domains.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Simon Jackson",
+        "email": "sjackson0109@users.noreply.github.com"
+      },
+      "homepage": "https://sjackson0109.github.io/claude-brainstorming/",
+      "category": "productivity",
+      "keywords": [
+        "brainstorming",
+        "creativity",
+        "strategy",
+        "domain-expertise",
+        "orchestrator",
+        "innovation",
+        "problem-solving",
+        "cybersecurity",
+        "business-strategy"
+      ]
+    }
+  ]
+}

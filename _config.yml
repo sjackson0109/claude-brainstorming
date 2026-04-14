@@ -1,0 +1,23 @@
+theme: jekyll-theme-cayman
+
+title: Brainstorming Skill for Claude
+description: >
+  An intelligent brainstorming orchestration system with 150 specialised
+  domain expertise skills — powered by Claude.
+
+# Exclude skill content from Jekyll processing
+exclude:
+  - "brainstorming"
+  - "*.skill"
+  - "__pycache__"
+  - "create_skill.py"
+  - "validate_skill.py"
+  - "validate_repository.py"
+  - "skill_counter.py"
+  - ".claude-plugin"
+  - "tests"
+
+# Keep HTML pages and images as static passthrough files
+include:
+  - "index.html"
+  - "installation.html"
