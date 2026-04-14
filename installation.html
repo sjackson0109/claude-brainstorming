@@ -1036,9 +1036,9 @@
                 <h4>Commit and push</h4>
                 <p>Commit the <code>.claude/settings.json</code> file to your repository. When team members open their Claude Code sessions, the skill will be automatically installed and available.</p>
                 <div class="code-block">
-                  <button class="copy-btn" data-copy="git add .claude/settings.json\ngit commit -m &quot;Add Brainstorming Skill auto-install config&quot;\ngit push" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <button class="copy-btn" data-copy="git add .claude/settings.json\ngit commit -m 'Add Brainstorming Skill auto-install config'\ngit push" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
                   <pre><span class="cmd">git</span> <span class="arg">add .claude/settings.json</span>
-<span class="cmd">git</span> <span class="arg">commit -m "Add Brainstorming Skill auto-install config"</span>
+<span class="cmd">git</span> <span class="arg">commit -m 'Add Brainstorming Skill auto-install config'</span>
 <span class="cmd">git</span> <span class="arg">push</span></pre>
                 </div>
               </div>
@@ -1538,6 +1538,7 @@
             var pre = codeBlock.querySelector('pre');
             text = pre.textContent;
           }
+          text = text.replace(/\\n/g, '\n');
           navigator.clipboard.writeText(text).then(function () {
             var original = btn.innerHTML;
             btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
