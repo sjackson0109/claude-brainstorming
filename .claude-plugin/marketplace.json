@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "brainstorming",
-      "source": "./plugins/brainstorming",
+      "source": "./brainstorming",
       "description": "Intelligent brainstorming orchestrator that automatically routes to 150 specialised domain expertise skills across technical, business, design, strategy, cybersecurity, and innovation domains.",
       "version": "1.0.0",
       "author": {

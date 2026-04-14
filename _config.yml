@@ -14,7 +14,6 @@ exclude:
   - "validate_skill.py"
   - "validate_repository.py"
   - "skill_counter.py"
-  - "plugins"
   - ".claude-plugin"
   - "tests"
 
