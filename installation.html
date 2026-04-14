@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Installation &amp; Usage Guide — Brainstorming Skill for Claude</title>
+  <meta name="description" content="Step-by-step installation and usage guide for the Brainstorming Skill — an intelligent brainstorming orchestration system with 150 specialised domain expertise skills for Claude.">
+  <meta name="author" content="Simon Jackson (@sjackson0109)">
+  <meta name="theme-color" content="#6C3CE1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #6C3CE1;
+      --primary-light: #8B5CF6;
+      --primary-dark: #5224B5;
+      --accent: #A78BFA;
+      --bg: #FFFFFF;
+      --bg-alt: #F5F3FF;
+      --bg-card: #FFFFFF;
+      --text: #1E1B4B;
+      --text-muted: #6B7280;
+      --text-light: #9CA3AF;
+      --border: #E5E7EB;
+      --code-bg: #1E1B4B;
+      --code-text: #E0E7FF;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-lg: 0 4px 12px rgba(0,0,0,0.08), 0 12px 36px rgba(0,0,0,0.06);
+      --radius: 12px;
+      --max-width: 1200px;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #8B5CF6;
+        --primary-light: #A78BFA;
+        --primary-dark: #7C3AED;
+        --accent: #C4B5FD;
+        --bg: #0F0D1A;
+        --bg-alt: #1A1730;
+        --bg-card: #1E1B30;
+        --text: #E8E5F5;
+        --text-muted: #A0A0B8;
+        --text-light: #6B6B85;
+        --border: #2D2A45;
+        --code-bg: #13111F;
+        --code-text: #C4B5FD;
+        --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+        --shadow-lg: 0 4px 12px rgba(0,0,0,0.3), 0 12px 36px rgba(0,0,0,0.25);
+        --success: #34D399;
+        --warning: #FBBF24;
+        --danger: #F87171;
+      }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      nav { background: rgba(15,13,26,0.85); }
+    }
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .nav-brand i { width: 24px; height: 24px; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
+
+    /* Hero / Page Header */
+    .page-hero {
+      padding: 7rem 1.5rem 3rem;
+      background: linear-gradient(135deg, #6C3CE1 0%, #4F46E5 40%, #7C3AED 100%);
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139,92,246,0.2) 0%, transparent 50%);
+    }
+    .page-hero-inner {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+      opacity: 0.85;
+    }
+    .breadcrumb a {
+      color: #FFFFFF;
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .breadcrumb a:hover { opacity: 1; }
+    .breadcrumb span { opacity: 0.5; }
+    .page-hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .page-hero p {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      line-height: 1.7;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Layout: Sidebar + Main */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    /* Table of Contents Sidebar */
+    .toc {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 96px);
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+    @media (max-width: 900px) {
+      .toc { display: none; }
+    }
+    .toc-title {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-list {
+      list-style: none;
+      border-left: 2px solid var(--border);
+      padding-left: 0;
+    }
+    .toc-list li { margin-bottom: 0.125rem; }
+    .toc-list a {
+      display: block;
+      padding: 0.3rem 0 0.3rem 1rem;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      margin-left: -2px;
+      transition: color 0.2s, border-color 0.2s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover,
+    .toc-list a.active {
+      color: var(--primary);
+      border-left-color: var(--primary);
+    }
+
+    /* Main Content */
+    .main-content {
+      min-width: 0;
+    }
+    .main-content section {
+      margin-bottom: 3.5rem;
+    }
+    .main-content section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Section Headings */
+    .section-anchor {
+      scroll-margin-top: 80px;
+    }
+    .main-content h2 {
+      font-size: 1.625rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+      scroll-margin-top: 80px;
+    }
+    .main-content h3 {
+      font-size: 1.1875rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      margin-top: 1.75rem;
+      color: var(--text);
+    }
+    .main-content h3:first-child {
+      margin-top: 0;
+    }
+    .main-content p {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .main-content ul, .main-content ol {
+      margin-bottom: 1rem;
+      padding-left: 1.25rem;
+    }
+    .main-content li {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      margin-bottom: 0.375rem;
+    }
+    .main-content li strong {
+      color: var(--text);
+    }
+
+    /* Prerequisite Cards */
+    .prereq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .prereq-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+    }
+    .prereq-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--bg-alt);
+      border-radius: 10px;
+      color: var(--primary);
+    }
+    @media (prefers-color-scheme: dark) {
+      .prereq-icon { background: rgba(139,92,246,0.12); }
+    }
+    .prereq-icon i { width: 20px; height: 20px; }
+    .prereq-info { flex: 1; min-width: 0; }
+    .prereq-info h4 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .prereq-info p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--code-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .code-block pre {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+      font-size: 0.8125rem;
+      line-height: 1.8;
+      color: var(--code-text);
+      white-space: pre;
+    }
+    .code-block .comment { color: #6B7280; }
+    .code-block .cmd { color: #A78BFA; }
+    .code-block .arg { color: #67E8F9; }
+    .code-block .str { color: #34D399; }
+    .code-block .key { color: #F9A8D4; }
+    .code-block .val { color: #67E8F9; }
+    .code-block .bool { color: #FCD34D; }
+    .code-block .punct { color: #9CA3AF; }
+    .code-label {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: 0.1875rem 0.625rem;
+      margin-bottom: 0.75rem;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--code-text);
+      border-radius: 6px;
+      padding: 0.375rem 0.625rem;
+      font-size: 0.6875rem;
+      font-family: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .code-block:hover .copy-btn { opacity: 1; }
+    .copy-btn:hover { background: rgba(255,255,255,0.15); }
+    .copy-btn i { width: 12px; height: 12px; }
+
+    /* Inline Code */
+    code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+      font-size: 0.8125em;
+      background: var(--bg-alt);
+      color: var(--primary);
+      padding: 0.125em 0.375em;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: dark) {
+      code { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.2); }
+    }
+
+    /* Tabs */
+    .tabs {
+      margin-bottom: 1.5rem;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 0.25rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .tab-btn i { width: 16px; height: 16px; }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Step Indicator */
+    .step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #FFFFFF;
+      border-radius: 50%;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      margin-top: 0.125rem;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-body h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.375rem;
+    }
+    .step-body p {
+      margin-bottom: 0.625rem;
+    }
+
+    /* Info / Tip / Warning Boxes */
+    .callout {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      align-items: flex-start;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    .callout i { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.125rem; }
+    .callout p { margin-bottom: 0; font-size: 0.875rem; }
+    .callout-info {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      color: var(--text);
+    }
+    .callout-info i { color: var(--primary); }
+    .callout-success {
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      color: var(--text);
+    }
+    .callout-success i { color: var(--success); }
+    .callout-warning {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      color: var(--text);
+    }
+    .callout-warning i { color: var(--warning); }
+    .callout-danger {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+      color: var(--text);
+    }
+    .callout-danger i { color: var(--danger); }
+
+    /* Domain Table */
+    .domain-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+    }
+    .domain-table th,
+    .domain-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .domain-table th {
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      background: var(--bg-alt);
+    }
+    .domain-table td {
+      color: var(--text-muted);
+    }
+    .domain-table td:first-child {
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .domain-table tbody tr {
+      transition: background 0.15s;
+    }
+    .domain-table tbody tr:hover {
+      background: var(--bg-alt);
+    }
+    .domain-table .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--bg-alt);
+      border-radius: 100px;
+      padding: 0.125rem 0.5rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .domain-table .badge { background: rgba(139,92,246,0.15); }
+    }
+    .table-scroll {
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    /* Example Prompt Card */
+    .example-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+    .example-prompt {
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border);
+    }
+    .example-prompt-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      margin-top: 0.125rem;
+    }
+    .example-prompt-icon i { width: 14px; height: 14px; }
+    .example-prompt p { font-size: 0.9375rem; line-height: 1.6; margin-bottom: 0; }
+    .example-prompt strong {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+    .example-result {
+      padding: 1rem 1.25rem;
+      background: var(--bg-alt);
+    }
+    .example-result strong {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      margin-bottom: 0.375rem;
+    }
+    .example-result p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0; }
+    .example-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      margin-top: 0.5rem;
+    }
+    .skill-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.1875rem 0.5rem;
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      color: var(--primary);
+    }
+
+    /* Troubleshooting Accordion */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 0.625rem;
+      overflow: hidden;
+      background: var(--bg-card);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .faq-question:hover { background: var(--bg-alt); }
+    .faq-question i {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.25rem 1rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-answer p {
+      font-size: 0.875rem;
+      margin-bottom: 0.625rem;
+    }
+    .faq-answer p:last-child { margin-bottom: 0; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(108,60,225,0.3);
+    }
+    .btn-primary:hover { box-shadow: 0 4px 16px rgba(108,60,225,0.4); }
+    .btn i { width: 18px; height: 18px; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+      background: var(--bg-alt);
+    }
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .footer-brand i { width: 20px; height: 20px; }
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    .footer-text a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .footer-text a:hover { text-decoration: underline; }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-links a i { width: 16px; height: 16px; }
+    @media (max-width: 640px) {
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    /* Utilities */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+    .mt-0 { margin-top: 0; }
+    .mb-0 { margin-bottom: 0; }
+    .mb-05 { margin-bottom: 0.5rem; }
+    .text-sm { font-size: 0.8125rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <i data-lucide="sparkles"></i>
+        Brainstorming Skill
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Install</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+        <li><a href="https://github.com/sjackson0109/claude-brainstorming" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html"><i data-lucide="home" style="width:14px;height:14px;"></i> Home</a>
+        <span>/</span>
+        <span>Installation &amp; Usage Guide</span>
+      </div>
+      <h1>Installation &amp; Usage Guide</h1>
+      <p>A comprehensive step-by-step walkthrough to install, configure, and use the Brainstorming Skill with Claude.</p>
+    </div>
+  </header>
+
+  <!-- Page Layout: Sidebar + Content -->
+  <div class="page-layout">
+
+    <!-- Table of Contents (sidebar) -->
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-title">On This Page</div>
+      <ul class="toc-list">
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation Methods</a></li>
+        <li><a href="#verifying">Verifying Installation</a></li>
+        <li><a href="#usage">Using the Skill</a></li>
+        <li><a href="#domains">Domain Categories</a></li>
+        <li><a href="#updating">Keeping Updated</a></li>
+        <li><a href="#uninstalling">Uninstalling</a></li>
+        <li><a href="#troubleshooting">Troubleshooting</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- 1. Prerequisites -->
+      <section id="prerequisites" class="section-anchor">
+        <h2>Prerequisites</h2>
+        <p>Before installing the Brainstorming Skill, ensure you have the following tools and accounts set up.</p>
+
+        <div class="prereq-grid">
+          <div class="prereq-card">
+            <div class="prereq-icon"><i data-lucide="terminal"></i></div>
+            <div class="prereq-info">
+              <h4>Claude Code</h4>
+              <p>The Claude Code CLI must be installed and accessible from your terminal.</p>
+            </div>
+          </div>
+          <div class="prereq-card">
+            <div class="prereq-icon"><i data-lucide="git-branch"></i></div>
+            <div class="prereq-info">
+              <h4>Git</h4>
+              <p>Git must be installed and available on your system PATH.</p>
+            </div>
+          </div>
+          <div class="prereq-card">
+            <div class="prereq-icon"><i data-lucide="key"></i></div>
+            <div class="prereq-info">
+              <h4>Active Subscription</h4>
+              <p>An active Claude subscription (Pro/Team/Enterprise) or a valid API key.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Verify Your Environment</h3>
+        <p>Open your terminal and run the following commands to confirm everything is in place:</p>
+        <div class="code-block">
+          <button class="copy-btn" data-copy="claude --version\ngit --version" aria-label="Copy commands"><i data-lucide="copy"></i> Copy</button>
+          <pre><span class="comment"># Confirm Claude Code is installed</span>
+<span class="cmd">claude</span> <span class="arg">--version</span>
+
+<span class="comment"># Confirm Git is available</span>
+<span class="cmd">git</span> <span class="arg">--version</span></pre>
+        </div>
+        <div class="callout callout-info">
+          <i data-lucide="info"></i>
+          <p>If <code>claude</code> is not recognised, follow the <a href="https://docs.anthropic.com/en/docs/claude-code/overview" target="_blank" rel="noopener" style="color:var(--primary);font-weight:500;">official Claude Code installation guide</a> first.</p>
+        </div>
+      </section>
+
+      <!-- 2. Installation Methods -->
+      <section id="installation" class="section-anchor">
+        <h2>Installation Methods</h2>
+        <p>Choose the method that best suits your workflow. The marketplace approach is recommended for most users.</p>
+
+        <div class="tabs">
+          <div class="tab-buttons" role="tablist">
+            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="marketplace" id="tab-marketplace">
+              <i data-lucide="store"></i>
+              Marketplace
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="manual" id="tab-manual">
+              <i data-lucide="folder-input"></i>
+              Manual Import
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="team" id="tab-team">
+              <i data-lucide="users"></i>
+              Team Setup
+            </button>
+          </div>
+
+          <!-- Tab 1: Marketplace -->
+          <div class="tab-content active" id="content-marketplace" role="tabpanel" aria-labelledby="tab-marketplace">
+            <div class="callout callout-success">
+              <i data-lucide="star"></i>
+              <p><strong>Recommended.</strong> The fastest way to install — two commands in your Claude Code session.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>Add the marketplace source</h4>
+                <p>Register the Brainstorming Skill marketplace within your Claude Code environment:</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy="/plugin marketplace add sjackson0109/claude-brainstorming" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <pre><span class="cmd">/plugin</span> <span class="arg">marketplace add sjackson0109/claude-brainstorming</span></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>Verify the marketplace listing</h4>
+                <p>Confirm that the marketplace has been added successfully:</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy="/plugin marketplace list" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <pre><span class="cmd">/plugin</span> <span class="arg">marketplace list</span></pre>
+                </div>
+                <p>You should see <code>brainstorming-skills</code> in the output.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>Install the skill</h4>
+                <p>Install the Brainstorming Skill from the registered marketplace:</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy="/plugin install brainstorming@brainstorming-skills" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <pre><span class="cmd">/plugin</span> <span class="arg">install brainstorming@brainstorming-skills</span></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              <i data-lucide="check-circle"></i>
+              <p>That&rsquo;s it! The skill is now available in your Claude Code sessions. Jump to <a href="#verifying" style="color:var(--primary);font-weight:500;">Verifying Installation</a> to confirm.</p>
+            </div>
+          </div>
+
+          <!-- Tab 2: Manual Import -->
+          <div class="tab-content" id="content-manual" role="tabpanel" aria-labelledby="tab-manual">
+            <p>If you prefer to manage the skill files yourself, you can clone the repository and import the skill manually.</p>
+
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>Clone the repository</h4>
+                <p>Clone the Brainstorming Skill repository to your local machine:</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy="git clone https://github.com/sjackson0109/claude-brainstorming.git\ncd claude-brainstorming" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <pre><span class="cmd">git</span> <span class="arg">clone https://github.com/sjackson0109/claude-brainstorming.git</span>
+<span class="cmd">cd</span> <span class="arg">claude-brainstorming</span></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>Open Claude Code settings</h4>
+                <p>Within your Claude Code session, navigate to <strong>Settings &rarr; Skills</strong>.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>Import the skill file</h4>
+                <p>Import the <code>brainstorming.skill</code> file from the cloned repository. This is the packaged skill archive containing all 150 domain reference files.</p>
+                <div class="callout callout-info">
+                  <i data-lucide="info"></i>
+                  <p>Alternatively, you can reference the <code>brainstorming/</code> directory directly if you prefer working with the raw skill files.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <h4>Confirm activation</h4>
+                <p>The skill should now appear in your Skills list. Verify by checking the active skills in your settings panel.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Team Setup -->
+          <div class="tab-content" id="content-team" role="tabpanel" aria-labelledby="tab-team">
+            <p>For team environments, you can pre-configure the skill so it is automatically available to all team members via shared project settings.</p>
+
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <h4>Locate your project settings</h4>
+                <p>Find or create the <code>.claude/settings.json</code> file in the root of your project repository.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <h4>Add the marketplace and plugin configuration</h4>
+                <p>Add the following configuration to your <code>.claude/settings.json</code>:</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy='{"extraKnownMarketplaces":{"brainstorming-skills":{"source":{"source":"github","repo":"sjackson0109/claude-brainstorming"}}},"enabledPlugins":{"brainstorming@brainstorming-skills":true}}' aria-label="Copy JSON"><i data-lucide="copy"></i> Copy</button>
+                  <div class="code-label">settings.json</div>
+                  <pre><span class="punct">{</span>
+  <span class="key">"extraKnownMarketplaces"</span><span class="punct">:</span> <span class="punct">{</span>
+    <span class="key">"brainstorming-skills"</span><span class="punct">:</span> <span class="punct">{</span>
+      <span class="key">"source"</span><span class="punct">:</span> <span class="punct">{</span>
+        <span class="key">"source"</span><span class="punct">:</span> <span class="str">"github"</span><span class="punct">,</span>
+        <span class="key">"repo"</span><span class="punct">:</span> <span class="str">"sjackson0109/claude-brainstorming"</span>
+      <span class="punct">}</span>
+    <span class="punct">}</span>
+  <span class="punct">},</span>
+  <span class="key">"enabledPlugins"</span><span class="punct">:</span> <span class="punct">{</span>
+    <span class="key">"brainstorming@brainstorming-skills"</span><span class="punct">:</span> <span class="bool">true</span>
+  <span class="punct">}</span>
+<span class="punct">}</span></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <h4>Commit and push</h4>
+                <p>Commit the <code>.claude/settings.json</code> file to your repository. When team members open their Claude Code sessions, the skill will be automatically installed and available.</p>
+                <div class="code-block">
+                  <button class="copy-btn" data-copy="git add .claude/settings.json\ngit commit -m &quot;Add Brainstorming Skill auto-install config&quot;\ngit push" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+                  <pre><span class="cmd">git</span> <span class="arg">add .claude/settings.json</span>
+<span class="cmd">git</span> <span class="arg">commit -m "Add Brainstorming Skill auto-install config"</span>
+<span class="cmd">git</span> <span class="arg">push</span></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-success">
+              <i data-lucide="users"></i>
+              <p>All team members will now automatically have the Brainstorming Skill available when they start a Claude Code session in this project.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Verifying Installation -->
+      <section id="verifying" class="section-anchor">
+        <h2>Verifying Installation</h2>
+        <p>After installing the skill, confirm that it is active and ready to use.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Check installed plugins</h4>
+            <p>List your installed plugins to confirm the Brainstorming Skill is present:</p>
+            <div class="code-block">
+              <button class="copy-btn" data-copy="/plugin list" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+              <pre><span class="cmd">/plugin</span> <span class="arg">list</span></pre>
+            </div>
+            <p>You should see <code>brainstorming@brainstorming-skills</code> listed with an <strong>active</strong> status.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Run a quick test</h4>
+            <p>Try a simple brainstorming prompt to confirm everything is working:</p>
+            <div class="example-card">
+              <div class="example-prompt">
+                <div class="example-prompt-icon"><i data-lucide="message-square"></i></div>
+                <div>
+                  <strong>Test Prompt</strong>
+                  <p>&ldquo;Use your Brainstorming skill to help me brainstorm ideas for improving team productivity.&rdquo;</p>
+                </div>
+              </div>
+              <div class="example-result">
+                <strong>Expected Behaviour</strong>
+                <p>Claude should acknowledge the Brainstorming Skill, identify the relevant domains (such as productivity and organisational development), and provide structured, expert-level suggestions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <i data-lucide="check-circle"></i>
+          <p>If Claude responds with domain-specific brainstorming output, the skill is correctly installed and working.</p>
+        </div>
+      </section>
+
+      <!-- 4. Using the Skill -->
+      <section id="usage" class="section-anchor">
+        <h2>Using the Skill</h2>
+        <p>The Brainstorming Skill works by analysing your prompt, detecting the relevant domains, and applying specialist expertise from its library of 150 reference skills. Here&rsquo;s how to get the most out of it.</p>
+
+        <h3>Basic Prompt Patterns</h3>
+        <p>Start your prompt with a clear reference to the Brainstorming Skill. The following patterns all work:</p>
+        <div class="code-block">
+          <pre><span class="comment"># Direct skill invocation</span>
+<span class="str">"Use your Brainstorming skill to help me with..."</span>
+
+<span class="comment"># Natural language trigger</span>
+<span class="str">"Brainstorm ideas for..."</span>
+
+<span class="comment"># Domain-specific request</span>
+<span class="str">"Help me brainstorm a cybersecurity strategy for..."</span></pre>
+        </div>
+
+        <h3>Single-Domain Requests</h3>
+        <p>When your request targets a single area of expertise, the skill routes to the most relevant domain and applies its specialised frameworks.</p>
+
+        <div class="example-card">
+          <div class="example-prompt">
+            <div class="example-prompt-icon"><i data-lucide="message-square"></i></div>
+            <div>
+              <strong>Single-Domain Prompt</strong>
+              <p>&ldquo;Use your Brainstorming skill to help me design a comprehensive API authentication strategy for a multi-tenant SaaS platform.&rdquo;</p>
+            </div>
+          </div>
+          <div class="example-result">
+            <strong>Skill Activation</strong>
+            <p>Routes to API design expertise, covering OAuth 2.0 flows, JWT management, tenant isolation patterns, and rate limiting strategies.</p>
+            <div class="example-skills">
+              <span class="skill-tag">api-design.md</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-prompt">
+            <div class="example-prompt-icon"><i data-lucide="message-square"></i></div>
+            <div>
+              <strong>Single-Domain Prompt</strong>
+              <p>&ldquo;Brainstorm approaches for implementing a green supply chain initiative in our manufacturing business.&rdquo;</p>
+            </div>
+          </div>
+          <div class="example-result">
+            <strong>Skill Activation</strong>
+            <p>Routes to sustainability expertise, applying circular economy frameworks, emissions tracking, and supplier assessment methodologies.</p>
+            <div class="example-skills">
+              <span class="skill-tag">sustainability-metrics.md</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>Multi-Domain Requests</h3>
+        <p>The skill truly shines when your challenge spans multiple areas. It automatically detects and combines relevant domains for a comprehensive response.</p>
+
+        <div class="example-card">
+          <div class="example-prompt">
+            <div class="example-prompt-icon"><i data-lucide="message-square"></i></div>
+            <div>
+              <strong>Multi-Domain Prompt</strong>
+              <p>&ldquo;Help me brainstorm a digital transformation strategy that includes cybersecurity considerations, change management for staff, and a pricing model for the new digital services.&rdquo;</p>
+            </div>
+          </div>
+          <div class="example-result">
+            <strong>Skill Activation</strong>
+            <p>Combines expertise from four domains to deliver a holistic strategy covering technology transformation, security architecture, organisational change psychology, and revenue modelling.</p>
+            <div class="example-skills">
+              <span class="skill-tag">digital-strategy.md</span>
+              <span class="skill-tag">cybersecurity.md</span>
+              <span class="skill-tag">change-management-psychology.md</span>
+              <span class="skill-tag">advanced-pricing-strategy.md</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>Advanced Techniques</h3>
+
+        <h4 style="font-size:1rem;font-weight:700;margin-top:1.25rem;margin-bottom:0.5rem;">Iterative Refinement</h4>
+        <p>Start with a broad brainstorming request and then refine. The skill maintains context across your conversation:</p>
+        <div class="code-block">
+          <pre><span class="comment"># Step 1: Initial broad brainstorm</span>
+<span class="str">"Use your Brainstorming skill to brainstorm strategies for entering the European market."</span>
+
+<span class="comment"># Step 2: Narrow the focus</span>
+<span class="str">"Now focus specifically on the regulatory and compliance challenges."</span>
+
+<span class="comment"># Step 3: Add another domain</span>
+<span class="str">"Also consider the pricing strategy implications for each market."</span></pre>
+        </div>
+
+        <h4 style="font-size:1rem;font-weight:700;margin-top:1.25rem;margin-bottom:0.5rem;">Constraint-Based Brainstorming</h4>
+        <p>Provide constraints to receive more targeted, actionable output:</p>
+        <div class="code-block">
+          <pre><span class="str">"Use your Brainstorming skill to brainstorm cost-effective cybersecurity</span>
+<span class="str"> improvements for a startup with fewer than 20 employees and a limited</span>
+<span class="str"> budget. Prioritise quick wins that can be implemented within 30 days."</span></pre>
+        </div>
+
+        <h4 style="font-size:1rem;font-weight:700;margin-top:1.25rem;margin-bottom:0.5rem;">Comparative Analysis</h4>
+        <p>Ask the skill to compare approaches across frameworks:</p>
+        <div class="code-block">
+          <pre><span class="str">"Brainstorm the pros and cons of adopting a microservices architecture</span>
+<span class="str"> versus a modular monolith, considering our team of 8 developers and</span>
+<span class="str"> current deployment pipeline."</span></pre>
+        </div>
+
+        <div class="callout callout-info">
+          <i data-lucide="lightbulb"></i>
+          <p><strong>Tip:</strong> The more context you provide about your situation, constraints, and goals, the more targeted and valuable the brainstorming output will be.</p>
+        </div>
+      </section>
+
+      <!-- 5. Domain Categories -->
+      <section id="domains" class="section-anchor">
+        <h2>Available Domain Categories</h2>
+        <p>The Brainstorming Skill covers 150 specialised skills across 16 professional domains. Here is a summary of each category and what it covers.</p>
+
+        <div class="table-scroll">
+          <table class="domain-table">
+            <thead>
+              <tr>
+                <th>Domain</th>
+                <th>Skills</th>
+                <th>Coverage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Technical &amp; Engineering</td>
+                <td><span class="badge">16</span></td>
+                <td>Software architecture, API design, cloud migration, performance engineering, DevOps, and infrastructure patterns.</td>
+              </tr>
+              <tr>
+                <td>Cybersecurity &amp; Offensive Security</td>
+                <td><span class="badge">37</span></td>
+                <td>Penetration testing, threat modelling, adversary simulation, compliance frameworks (CIS, NIST, CMMC), and security operations.</td>
+              </tr>
+              <tr>
+                <td>Business Strategy &amp; Commercial</td>
+                <td><span class="badge">15</span></td>
+                <td>Competitive intelligence, market analysis, business case development, go-to-market strategy, and commercial planning.</td>
+              </tr>
+              <tr>
+                <td>Product &amp; Innovation</td>
+                <td><span class="badge">10</span></td>
+                <td>Product roadmapping, feature prioritisation, design thinking, MVP strategy, and innovation management.</td>
+              </tr>
+              <tr>
+                <td>Design &amp; User Experience</td>
+                <td><span class="badge">7</span></td>
+                <td>UI design systems, usability testing, accessibility, information architecture, and design patterns.</td>
+              </tr>
+              <tr>
+                <td>Financial Strategy &amp; Pricing</td>
+                <td><span class="badge">5</span></td>
+                <td>Pricing models, revenue optimisation, financial modelling, and cost-benefit analysis.</td>
+              </tr>
+              <tr>
+                <td>Operations &amp; Process Optimisation</td>
+                <td><span class="badge">8</span></td>
+                <td>Lean methodologies, Six Sigma, continuous improvement, supply chain optimisation, and workflow automation.</td>
+              </tr>
+              <tr>
+                <td>Organisational Development &amp; People</td>
+                <td><span class="badge">13</span></td>
+                <td>Change management, organisational design, talent strategy, leadership development, and culture transformation.</td>
+              </tr>
+              <tr>
+                <td>Analytics &amp; Data-Driven Decision Making</td>
+                <td><span class="badge">13</span></td>
+                <td>Data strategy, predictive analytics, A/B testing, KPI frameworks, and business intelligence.</td>
+              </tr>
+              <tr>
+                <td>Sustainability &amp; Environment</td>
+                <td><span class="badge">5</span></td>
+                <td>ESG strategy, carbon footprint analysis, circular economy, sustainability metrics, and green technology.</td>
+              </tr>
+              <tr>
+                <td>Crisis Management &amp; Strategic Challenges</td>
+                <td><span class="badge">4</span></td>
+                <td>Crisis response planning, risk assessment, business continuity, and disaster recovery strategy.</td>
+              </tr>
+              <tr>
+                <td>Facilitation &amp; Communication</td>
+                <td><span class="badge">3</span></td>
+                <td>Workshop facilitation, stakeholder communication, and presentation strategy.</td>
+              </tr>
+              <tr>
+                <td>Knowledge &amp; Learning Systems</td>
+                <td><span class="badge">5</span></td>
+                <td>Knowledge management, learning programme design, competency frameworks, and documentation strategy.</td>
+              </tr>
+              <tr>
+                <td>Advanced Thinking &amp; Analysis</td>
+                <td><span class="badge">6</span></td>
+                <td>Systems thinking, scenario planning, analogical reasoning, cross-domain analysis, and red team exercises.</td>
+              </tr>
+              <tr>
+                <td>Productivity &amp; Personal Effectiveness</td>
+                <td><span class="badge">1</span></td>
+                <td>Personal productivity frameworks, time management, and focus strategies.</td>
+              </tr>
+              <tr>
+                <td>Digital Strategy &amp; E-commerce</td>
+                <td><span class="badge">2</span></td>
+                <td>Digital transformation roadmaps and e-commerce platform strategy.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. Keeping Updated -->
+      <section id="updating" class="section-anchor">
+        <h2>Keeping Updated</h2>
+        <p>The Brainstorming Skill is actively maintained. Keep your installation up to date to benefit from new domain skills and improvements.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Update the marketplace</h4>
+            <p>Refresh the marketplace to fetch the latest version of the skill catalogue:</p>
+            <div class="code-block">
+              <button class="copy-btn" data-copy="/plugin marketplace update brainstorming-skills" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+              <pre><span class="cmd">/plugin</span> <span class="arg">marketplace update brainstorming-skills</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Update the installed plugin</h4>
+            <p>Apply the latest version to your local installation:</p>
+            <div class="code-block">
+              <button class="copy-btn" data-copy="/plugin update brainstorming@brainstorming-skills" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+              <pre><span class="cmd">/plugin</span> <span class="arg">update brainstorming@brainstorming-skills</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <i data-lucide="refresh-cw"></i>
+          <p><strong>Tip:</strong> Check for updates periodically, especially after new releases are announced on the <a href="https://github.com/sjackson0109/claude-brainstorming/releases" target="_blank" rel="noopener" style="color:var(--primary);font-weight:500;">GitHub Releases page</a>.</p>
+        </div>
+      </section>
+
+      <!-- 7. Uninstalling -->
+      <section id="uninstalling" class="section-anchor">
+        <h2>Uninstalling</h2>
+        <p>If you need to remove the Brainstorming Skill, follow these two steps:</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>Uninstall the plugin</h4>
+            <p>Remove the installed plugin from your Claude Code environment:</p>
+            <div class="code-block">
+              <button class="copy-btn" data-copy="/plugin uninstall brainstorming@brainstorming-skills" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+              <pre><span class="cmd">/plugin</span> <span class="arg">uninstall brainstorming@brainstorming-skills</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Remove the marketplace source</h4>
+            <p>Optionally, remove the marketplace source if you no longer need it:</p>
+            <div class="code-block">
+              <button class="copy-btn" data-copy="/plugin marketplace remove brainstorming-skills" aria-label="Copy command"><i data-lucide="copy"></i> Copy</button>
+              <pre><span class="cmd">/plugin</span> <span class="arg">marketplace remove brainstorming-skills</span></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <i data-lucide="alert-triangle"></i>
+          <p>If you used the Team Setup method, remember to also remove the configuration from your project&rsquo;s <code>.claude/settings.json</code> file.</p>
+        </div>
+      </section>
+
+      <!-- 8. Troubleshooting -->
+      <section id="troubleshooting" class="section-anchor">
+        <h2>Troubleshooting</h2>
+        <p>Encountering issues? Here are solutions to common problems.</p>
+
+        <div class="faq-item open">
+          <button class="faq-question" aria-expanded="true">
+            <span>&ldquo;Plugin not found&rdquo; when trying to install</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>This usually means the marketplace source hasn&rsquo;t been added yet. Run the following command first:</p>
+            <div class="code-block">
+              <pre><span class="cmd">/plugin</span> <span class="arg">marketplace add sjackson0109/claude-brainstorming</span></pre>
+            </div>
+            <p>Then retry the install command. Also verify your internet connection and that you can reach GitHub.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>The skill is installed but Claude doesn&rsquo;t seem to use it</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Ensure you&rsquo;re explicitly mentioning brainstorming in your prompt. Try phrases like:</p>
+            <ul>
+              <li>&ldquo;Use your Brainstorming skill to&hellip;&rdquo;</li>
+              <li>&ldquo;Brainstorm ideas for&hellip;&rdquo;</li>
+              <li>&ldquo;Help me brainstorm&hellip;&rdquo;</li>
+            </ul>
+            <p>Also confirm the plugin is active by running <code>/plugin list</code> and checking that it shows as enabled.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Team settings file isn&rsquo;t being picked up</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Verify the file is located at exactly <code>.claude/settings.json</code> in the repository root. Ensure the JSON is valid (no trailing commas, correct bracket pairing). Team members need to pull the latest changes before the configuration takes effect.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Getting permission or authentication errors</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Ensure you have an active Claude subscription or valid API key configured. Check your Claude Code authentication status:</p>
+            <div class="code-block">
+              <pre><span class="cmd">claude</span> <span class="arg">--version</span></pre>
+            </div>
+            <p>If you&rsquo;re behind a corporate firewall or proxy, ensure that both <code>github.com</code> and the Anthropic API endpoints are accessible.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How do I report a bug or request a new domain?</span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Open an issue on the <a href="https://github.com/sjackson0109/claude-brainstorming/issues" target="_blank" rel="noopener" style="color:var(--primary);font-weight:500;">GitHub Issues page</a>. Include details about your environment, the steps to reproduce, and any relevant error messages. Feature requests for new domains are also welcome.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <i data-lucide="sparkles"></i>
+          Brainstorming Skill
+        </div>
+        <p class="footer-text" style="margin-top:0.5rem;">
+          Created by <a href="https://github.com/sjackson0109" target="_blank" rel="noopener">Simon Jackson (@sjackson0109)</a><br>
+          Released under the <a href="https://github.com/sjackson0109/claude-brainstorming/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT Licence</a>.
+        </p>
+      </div>
+      <ul class="footer-links">
+        <li>
+          <a href="https://github.com/sjackson0109/claude-brainstorming" target="_blank" rel="noopener">
+            <i data-lucide="github"></i>
+            Repository
+          </a>
+        </li>
+        <li>
+          <a href="docs/user-guide.md">
+            <i data-lucide="book-open"></i>
+            Documentation
+          </a>
+        </li>
+        <li>
+          <a href="docs/quick-reference.md">
+            <i data-lucide="list"></i>
+            Quick Reference
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialise Lucide icons
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+
+      // Tab switching
+      document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var tabId = this.getAttribute('data-tab');
+          var tabGroup = this.closest('.tabs');
+
+          tabGroup.querySelectorAll('.tab-btn').forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          tabGroup.querySelectorAll('.tab-content').forEach(function (c) {
+            c.classList.remove('active');
+          });
+
+          this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
+          document.getElementById('content-' + tabId).classList.add('active');
+        });
+      });
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-question').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = this.closest('.faq-item');
+          var isOpen = item.classList.contains('open');
+          item.classList.toggle('open');
+          this.setAttribute('aria-expanded', !isOpen);
+        });
+      });
+
+      // Copy button
+      document.querySelectorAll('.copy-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = this.getAttribute('data-copy');
+          if (!text) {
+            var codeBlock = this.closest('.code-block');
+            var pre = codeBlock.querySelector('pre');
+            text = pre.textContent;
+          }
+          navigator.clipboard.writeText(text).then(function () {
+            var original = btn.innerHTML;
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+            setTimeout(function () { btn.innerHTML = original; }, 2000);
+          });
+        });
+      });
+
+      // Active TOC link highlighting on scroll
+      var tocLinks = document.querySelectorAll('.toc-list a');
+      var sections = [];
+      tocLinks.forEach(function (link) {
+        var id = link.getAttribute('href').substring(1);
+        var section = document.getElementById(id);
+        if (section) sections.push({ el: section, link: link });
+      });
+
+      function updateToc() {
+        var scrollPos = window.scrollY + 120;
+        var current = null;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (sections[i].el.offsetTop <= scrollPos) {
+            current = sections[i];
+            break;
+          }
+        }
+        tocLinks.forEach(function (l) { l.classList.remove('active'); });
+        if (current) current.link.classList.add('active');
+      }
+
+      window.addEventListener('scroll', updateToc, { passive: true });
+      updateToc();
+    });
+  </script>
+</body>
+</html>
