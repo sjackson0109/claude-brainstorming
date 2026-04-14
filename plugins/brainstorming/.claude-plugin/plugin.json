@@ -1,0 +1,23 @@
+{
+  "name": "brainstorming",
+  "description": "Intelligent brainstorming orchestrator that automatically routes to 150 specialised domain expertise skills across technical, business, design, strategy, cybersecurity, and innovation domains.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Simon Jackson",
+    "email": "sjackson0109@users.noreply.github.com"
+  },
+  "homepage": "https://sjackson0109.github.io/claude-brainstorming/",
+  "repository": "https://github.com/sjackson0109/claude-brainstorming",
+  "license": "MIT",
+  "keywords": [
+    "brainstorming",
+    "creativity",
+    "strategy",
+    "domain-expertise",
+    "orchestrator",
+    "innovation",
+    "problem-solving",
+    "cybersecurity",
+    "business-strategy"
+  ]
+}
